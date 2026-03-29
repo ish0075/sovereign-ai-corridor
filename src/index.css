@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 170 100% 45%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 170 100% 45%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 170 100% 45%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 170 100% 45%;
+    --radius: 0.625rem;
+    
+    /* Greenish-blue / Teal accent color */
+    --teal: 170 100% 45%;
+    --teal-light: 170 100% 55%;
+    --dark-bg: 0 0% 4%;
+    --card-bg: 0 0% 8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    @apply bg-[#0a0a0a] text-white antialiased;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+    font-size: 16px;
+    line-height: 1.5;
+    min-width: 320px;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+  }
+  
+  p, span, a, button, input, textarea {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Ensure images don't overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  .sci-fi-card {
+    @apply bg-[#141414] border border-[#2a2a2a] rounded-xl;
+    box-shadow: 0 0 20px rgba(0, 230, 180, 0.05);
+  }
+  
+  .sci-fi-card:hover {
+    box-shadow: 0 0 30px rgba(0, 230, 180, 0.15);
+    border-color: rgba(0, 230, 180, 0.3);
+  }
+  
+  .neon-border-teal {
+    border: 1px solid rgba(0, 230, 180, 0.3);
+    box-shadow: 0 0 15px rgba(0, 230, 180, 0.1), inset 0 0 15px rgba(0, 230, 180, 0.05);
+  }
+  
+  .glow-text-teal {
+    text-shadow: 0 0 20px rgba(0, 230, 180, 0.5);
+  }
+  
+  .btn-primary {
+    @apply px-6 py-4 bg-[#00e6b4] text-black font-semibold rounded-lg transition-all duration-300;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
+    min-height: 48px;
+    min-width: 120px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .btn-primary:hover,
+  .btn-primary:active {
+    box-shadow: 0 0 30px rgba(0, 230, 180, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .btn-outline {
+    @apply px-6 py-4 border border-[#00e6b4] text-[#00e6b4] font-semibold rounded-lg transition-all duration-300;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
+    min-height: 48px;
+    min-width: 120px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .btn-outline:hover,
+  .btn-outline:active {
+    background: rgba(0, 230, 180, 0.1);
+    box-shadow: 0 0 20px rgba(0, 230, 180, 0.3);
+  }
+  
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(0, 230, 180, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 230, 180, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-24;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  .text-teal {
+    color: #00e6b4;
+  }
+  
+  .bg-teal {
+    background-color: #00e6b4;
+  }
+  
+  .border-teal {
+    border-color: #00e6b4;
+  }
+  
+  .shadow-neon-teal {
+    box-shadow: 0 0 20px rgba(0, 230, 180, 0.3);
+  }
+  
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00e6b4;
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 230, 180, 0.3);
+  color: white;
+}
