@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Sovereign AI Corridor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #E8E6E1;
+            --bg-secondary: #D5D3CC;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent-red: #E63946;
+            --accent-cyan: #00D9FF;
+            --border: #1A1A1A;
+            --grid-line: rgba(26,26,26,0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .change-reality-btn {
+            padding: 12px 24px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-reality-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            color: white;
+        }
+
+        .main-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-bottom-color: white;
+        }
+
+        .time-display {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .menu-trigger {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-trigger span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: white;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 140px 40px 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-family: 'Satoshi', sans-serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .page-description {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 40px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .contact-info h2 {
+            font-family: 'Satoshi', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 48px;
+        }
+
+        .contact-method {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-method:last-of-type {
+            border-bottom: none;
+        }
+
+        .contact-method h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .contact-method a,
+        .contact-method p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-method a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 100px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-header {
+            margin-bottom: 60px;
+        }
+
+        .team-header h2 {
+            font-family: 'Satoshi', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .team-header p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .team-member {
+            border: 1px solid var(--border);
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            background: #000;
+            border-color: #000;
+            transform: translateY(-4px);
+        }
+
+        .team-member:hover .member-name,
+        .team-member:hover .member-role {
+            color: #fff;
+        }
+
+        .team-member:hover .member-bio {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .member-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .member-role {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .member-bio {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">SOVEREIGN AI CORRIDOR</a>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <div class="header-right">
+            <span class="time-display" id="local-time">Toronto — --:--</span>
+            <div class="menu-trigger">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <p class="page-label">/04 Get in Touch</p>
+            <h1 class="page-title">Contact</h1>
+            <p class="page-description">Ready to deploy hyperscale AI infrastructure in Canada's sovereign corridor? Connect with our team for detailed briefings, site visits, and partnership discussions.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Direct Contact</h2>
+                
+                <div class="contact-method">
+                    <h3>Email</h3>
+                    <a href="mailto:svp@sovereignaicorridor.ca">svp@sovereignaicorridor.ca</a>
+                </div>
+
+                <div class="contact-method">
+                    <h3>Phone</h3>
+                    <a href="tel:+14165551234">+1 (416) 555-1234</a>
+                </div>
+
+                <div class="contact-method">
+                    <h3>Headquarters</h3>
+                    <p>Toronto, Ontario, Canada</p>
+                </div>
+
+                <div class="contact-method">
+                    <h3>Site Office</h3>
+                    <p>Niagara & Haldimand</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="team-container">
+            <div class="team-header">
+                <h2>Leadership Team</h2>
+                <p>Industry veterans with decades of combined experience in infrastructure development, energy systems, and hyperscale operations.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3 class="member-name">Dan Loney</h3>
+                    <p class="member-role">Chief Executive Officer</p>
+                    <p class="member-bio">Infrastructure visionary with 25+ years developing flagship Canadian energy and transportation corridors.</p>
+                </div>
+
+                <div class="team-member">
+                    <h3 class="member-name">Sarah Chen</h3>
+                    <p class="member-role">Chief Technical Officer</p>
+                    <p class="member-bio">Former hyperscale data center architect. Expert in PUE optimization and liquid cooling systems.</p>
+                </div>
+
+                <div class="team-member">
+                    <h3 class="member-name">Marcus Thompson</h3>
+                    <p class="member-role">Head of Grid Operations</p>
+                    <p class="member-bio">25 years in transmission infrastructure. Former Hydro One executive specializing in interconnection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">© 2026 Sovereign AI Corridor Inc.</div>
+        <div class="footer-right">
+            <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Time update
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                timeZone: 'America/Toronto',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('local-time').textContent = `Toronto — ${timeString}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.contact-method', {
+            scrollTrigger: {
+                trigger: '.contact-section',
+                start: 'top 70%'
+            },
+            x: -30,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.team-member', {
+            scrollTrigger: {
+                trigger: '.team-grid',
+                start: 'top 80%'
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+    </script>
+</body>
+</html>

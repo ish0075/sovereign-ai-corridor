@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOVEREIGN AI CORRIDOR — Infrastructure by Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #E8E6E1;
+            --bg-secondary: #D5D3CC;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent-red: #E63946;
+            --accent-cyan: #00D9FF;
+            --border: #1A1A1A;
+            --grid-line: rgba(26,26,26,0.04);
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .change-reality-btn {
+            padding: 12px 24px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-reality-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            color: white;
+        }
+
+        .main-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-bottom-color: white;
+        }
+
+        .time-display {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .menu-trigger {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-trigger span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 45% 55%;
+        }
+
+        .hero-content {
+            padding: 120px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 20;
+        }
+
+        .hero-title h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 56px;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            max-width: 500px;
+            margin-bottom: 16px;
+        }
+
+        .hero-title .tag {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: #000;
+            margin-top: 8px;
+        }
+
+        .hero-intro {
+            max-width: 420px;
+            margin-top: 40px;
+        }
+
+        .hero-intro p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat .value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 32px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+        }
+
+        .core-threads {
+            margin-top: auto;
+            padding-top: 40px;
+        }
+
+        .core-threads h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .thread-list {
+            list-style: none;
+            max-width: 300px;
+        }
+
+        .thread-list li {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .thread-list li::before {
+            content: '→';
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .floating-image-container {
+            position: relative;
+            width: 90%;
+            max-width: 1100px;
+            aspect-ratio: 16 / 9;
+            z-index: 10;
+        }
+
+        .floating-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.2));
+        }
+
+        .watermark-cover {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 110px;
+            height: 42px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            z-index: 5;
+            filter: blur(2px);
+        }
+
+        /* Hero video logo watermark */
+        .hero-video-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 220px;
+            height: 32px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .hero-video-logo svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Audio Section - High Contrast Over Video */
+        .audio-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+        }
+
+        .audio-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .audio-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1);
+        }
+
+        .audio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(232, 230, 225, 0.15);
+            z-index: 2;
+        }
+
+        .audio-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 40px;
+            height: 100%;
+        }
+
+        .audio-container-center {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Left Side - Title and Controls */
+        .audio-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .podcast-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #fff;
+            background: #000;
+            padding: 10px 18px;
+            margin-bottom: 32px;
+        }
+
+        .podcast-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .podcast-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .audio-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(48px, 6vw, 80px);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            mix-blend-mode: difference;
+        }
+
+        .audio-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 48px;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Waveform */
+        .waveform-container {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 50px;
+            margin-bottom: 40px;
+            opacity: 0.4;
+        }
+
+        .waveform-container.playing {
+            opacity: 0.8;
+        }
+
+        .waveform-bar {
+            width: 4px;
+            background: #fff;
+            border-radius: 2px;
+            animation: waveform 1s ease-in-out infinite;
+            box-shadow: 0 0 4px rgba(0,0,0,0.3);
+        }
+
+        .waveform-bar:nth-child(odd) { animation-duration: 0.8s; }
+        .waveform-bar:nth-child(3n) { animation-duration: 1.2s; }
+        .waveform-bar:nth-child(5n) { animation-duration: 0.6s; }
+
+        @keyframes waveform {
+            0%, 100% { height: 20%; }
+            50% { height: 100%; }
+        }
+
+        .waveform-container:not(.playing) .waveform-bar {
+            animation: none;
+            height: 20%;
+        }
+
+        /* Play Button - Black background, white letters */
+        .play-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 40px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #000;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+        }
+
+        .play-button:hover {
+            background: transparent;
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .play-button.playing {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 14px solid currentColor;
+            border-top: 9px solid transparent;
+            border-bottom: 9px solid transparent;
+        }
+
+        .play-button.playing .play-icon {
+            width: 14px;
+            height: 18px;
+            border: none;
+            background: transparent;
+            position: relative;
+        }
+
+        .play-button.playing .play-icon::before,
+        .play-button.playing .play-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: currentColor;
+        }
+
+        .play-button.playing .play-icon::before { left: 0; }
+        .play-button.playing .play-icon::after { right: 0; }
+
+        /* Progress */
+        .audio-progress-area {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .audio-progress {
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .audio-progress-bar {
+            height: 100%;
+            background: #fff;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 4px rgba(255,255,255,0.5);
+        }
+
+        .audio-time {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Right Side - Chapter Cards Over Video */
+        .audio-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .chapter-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 24px 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .chapter-card:hover,
+        .chapter-card.active {
+            background: #000;
+            border-color: #000;
+            transform: translateX(8px);
+        }
+
+        .chapter-card:hover .chapter-number,
+        .chapter-card.active .chapter-number {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .chapter-card:hover h5,
+        .chapter-card.active h5 {
+            color: #fff;
+        }
+
+        .chapter-card:hover p,
+        .chapter-card.active p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .chapter-card:hover .chapter-time,
+        .chapter-card.active .chapter-time {
+            color: rgba(255,255,255,0.5);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .chapter-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.5);
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .chapter-card h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #000;
+            transition: color 0.3s ease;
+        }
+
+        .chapter-card p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            color: rgba(0,0,0,0.6);
+            transition: color 0.3s ease;
+        }
+
+        .chapter-time {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: rgba(0,0,0,0.4);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Chapters Section - Separate Page */
+        .chapters-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+        }
+
+        .chapters-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .chapters-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1);
+        }
+
+        .chapters-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(232, 230, 225, 0.15);
+            z-index: 2;
+        }
+
+        .chapters-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 60px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        /* Video Player Section - Clean White */
+        .video-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 100px 40px;
+            background: #fff;
+        }
+
+        .video-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .video-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            margin-bottom: 32px;
+        }
+
+        .video-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .video-title {
+            font-family: var(--font-display);
+            font-size: clamp(42px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 16px;
+            color: #000;
+        }
+
+        .video-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Video Player - Black */
+        .video-player-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .main-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: #000;
+        }
+
+        /* Video Logo Overlay - bottom right to cover watermark */
+        .video-logo-overlay {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 180px;
+            height: 32px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .video-logo-overlay svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .video-controls {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.2);
+            transition: opacity 0.3s ease;
+        }
+
+        .video-controls.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .video-play-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .video-play-icon {
+            width: 0;
+            height: 0;
+            border-left: 22px solid #000;
+            border-top: 14px solid transparent;
+            border-bottom: 14px solid transparent;
+            margin-left: 4px;
+        }
+
+        /* Video Progress */
+        .video-progress-area {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 32px;
+        }
+
+        .video-progress {
+            height: 3px;
+            background: rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-progress-bar {
+            height: 100%;
+            background: #000;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .video-time {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Cinematic Film Sections */
+        .cinematic-section {
+            position: relative;
+        }
+
+        .film-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .film-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .film-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .film-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(232, 230, 225, 0.85);
+            z-index: 2;
+        }
+
+        .film-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 40px;
+        }
+
+        .film-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .film-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .film-description {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Center Big Number Section */
+        .film-section.center-number .film-overlay {
+            background: rgba(232, 230, 225, 0.7);
+        }
+
+        .film-big-number {
+            font-family: var(--font-display);
+            font-size: clamp(120px, 20vw, 280px);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .film-big-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 16px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* Data Section */
+        .data-section {
+            position: relative;
+            padding: 120px 40px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-header .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .section-header .section-title {
+            font-family: var(--font-display);
+            font-size: 42px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .data-card {
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            padding: 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .data-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .data-card h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .data-card .value {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .data-card .value .unit {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-left: 4px;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 120px 40px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-primary);
+        }
+
+        .quote-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .quote-image {
+            position: relative;
+        }
+
+        .quote-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%) contrast(1.1);
+            border: 1px solid var(--border);
+        }
+
+        .quote-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,217,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+            border: 1px solid var(--border);
+        }
+
+        .quote-content {
+            text-align: left;
+        }
+
+        .quote-content blockquote {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 40px;
+        }
+
+        .quote-attribution {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quote-attribution .name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .quote-attribution .title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .quote-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                padding-top: 100px;
+            }
+            
+            .data-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quote-container {
+                grid-template-columns: 200px 1fr;
+                gap: 40px;
+            }
+
+            .quote-content blockquote {
+                font-size: 22px;
+            }
+
+            .audio-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                padding: 60px 40px;
+                gap: 60px;
+            }
+
+            .audio-left {
+                align-items: center;
+                text-align: center;
+            }
+
+            .audio-right {
+                max-width: 500px;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            .audio-title {
+                font-size: 48px;
+                text-align: center;
+            }
+
+            .audio-subtitle {
+                text-align: center;
+            }
+
+            .chapters-container {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 60px 40px;
+            }
+
+            .video-section {
+                padding: 80px 40px;
+            }
+
+            .video-title {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quote-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .quote-image {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
+            .quote-content {
+                text-align: center;
+            }
+
+            .quote-attribution {
+                justify-content: center;
+            }
+
+            .waveform-container {
+                gap: 2px;
+            }
+
+            .waveform-bar {
+                width: 3px;
+            }
+
+            .play-button {
+                padding: 18px 32px;
+                font-size: 12px;
+            }
+
+            .audio-container {
+                padding: 40px 24px;
+            }
+
+            .chapter-card {
+                padding: 20px;
+            }
+
+            .chapter-card h5 {
+                font-size: 16px;
+            }
+
+            .chapters-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                padding: 40px 24px;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .video-section {
+                padding: 60px 24px;
+            }
+
+            .video-title {
+                font-size: 36px;
+            }
+
+            .video-play-btn {
+                width: 70px;
+                height: 70px;
+            }
+
+            .video-play-icon {
+                border-left-width: 20px;
+                border-top-width: 12px;
+                border-bottom-width: 12px;
+            }
+
+            .hero-video-logo {
+                width: 180px;
+                height: 26px;
+                bottom: 12px;
+                right: 12px;
+            }
+
+            .video-logo-overlay {
+                width: 140px;
+                height: 26px;
+                bottom: 8px;
+                right: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">SOVEREIGN AI CORRIDOR</a>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <div class="header-right">
+            <span class="time-display" id="local-time">Toronto — --:--</span>
+            <div class="menu-trigger">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <div class="hero-title">
+                    <h1>SOVEREIGN BY INFRASTRUCTURE.</h1>
+                    <span class="tag">500kV — Industrial Zoned Land — Ready Now</span>
+                </div>
+
+                <div class="hero-intro">
+                    <p>Sovereign AI Corridor Inc. has assembled 500+ acres across two strategic nodes — Niagara and Haldimand — creating a policy-locked, grid-locked, Industrial-zoned-locked corridor ready for immediate hyperscale AI compute deployment.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="value">500+</span>
+                            <span class="label">Acres</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="value">2+</span>
+                            <span class="label">GW Capacity</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="value">12</span>
+                            <span class="label">Month Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="core-threads">
+                <h3>Built to Hyperscale Spec</h3>
+                <ul class="thread-list">
+                    <li>Grid Locked</li>
+                    <li>Cooling Superhighway</li>
+                    <li>Energy Recycling</li>
+                    <li>Industrial Zoned Land Locked</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="floating-image-container">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline class="floating-image"></video>
+                <!-- Logo Watermark -->
+                <div class="hero-video-logo">
+                    <svg viewBox="0 0 220 32" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background pill - white -->
+                        <rect x="0" y="0" width="220" height="32" rx="16" fill="rgba(255,255,255,0.95)"/>
+                        <!-- Border -->
+                        <rect x="0.5" y="0.5" width="219" height="31" rx="15.5" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+                        <!-- Text: SOVEREIGN AI CORRIDOR - black -->
+                        <text x="110" y="20" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="700" 
+                              fill="#1A1A1A" letter-spacing="0.15em" text-anchor="middle">SOVEREIGN AI CORRIDOR</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Section - Main Player -->
+    <section class="audio-section">
+        <div class="audio-bg">
+            <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="audio-overlay"></div>
+        
+        <div class="audio-container-center">
+            <div class="podcast-badge">
+                <span class="podcast-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
+                        <circle cx="12" cy="12" r="2"/>
+                    </svg>
+                </span>
+                <span>Audio Podcast</span>
+            </div>
+            
+            <h2 class="audio-title">Canada's<br>Shovel-Ready</h2>
+            <p class="audio-subtitle">Complete corridor briefing — 5 minutes</p>
+            
+            <!-- Waveform -->
+            <div class="waveform-container" id="waveform">
+                <div class="waveform-bar" style="height: 30%"></div>
+                <div class="waveform-bar" style="height: 60%"></div>
+                <div class="waveform-bar" style="height: 40%"></div>
+                <div class="waveform-bar" style="height: 80%"></div>
+                <div class="waveform-bar" style="height: 50%"></div>
+                <div class="waveform-bar" style="height: 90%"></div>
+                <div class="waveform-bar" style="height: 35%"></div>
+                <div class="waveform-bar" style="height: 70%"></div>
+                <div class="waveform-bar" style="height: 45%"></div>
+                <div class="waveform-bar" style="height: 85%"></div>
+                <div class="waveform-bar" style="height: 55%"></div>
+                <div class="waveform-bar" style="height: 40%"></div>
+                <div class="waveform-bar" style="height: 75%"></div>
+                <div class="waveform-bar" style="height: 50%"></div>
+                <div class="waveform-bar" style="height: 95%"></div>
+                <div class="waveform-bar" style="height: 35%"></div>
+                <div class="waveform-bar" style="height: 65%"></div>
+                <div class="waveform-bar" style="height: 45%"></div>
+                <div class="waveform-bar" style="height: 80%"></div>
+                <div class="waveform-bar" style="height: 55%"></div>
+                <div class="waveform-bar" style="height: 40%"></div>
+                <div class="waveform-bar" style="height: 70%"></div>
+                <div class="waveform-bar" style="height: 50%"></div>
+                <div class="waveform-bar" style="height: 85%"></div>
+                <div class="waveform-bar" style="height: 60%"></div>
+            </div>
+            
+            <!-- Play Button -->
+            <button class="play-button" id="audio-play-btn">
+                <span class="play-icon"></span>
+                <span class="play-text">Play Podcast</span>
+            </button>
+            
+            <!-- Progress -->
+            <div class="audio-progress-area">
+                <div class="audio-progress" id="audio-progress-container">
+                    <div class="audio-progress-bar" id="audio-progress"></div>
+                </div>
+                <div class="audio-time">
+                    <span id="current-time">0:00</span>
+                    <span id="duration">--:--</span>
+                </div>
+            </div>
+            
+            <audio id="corridor-audio" src="audio/canada-sovereign-ai-corridor.mp3" preload="metadata"></audio>
+        </div>
+    </section>
+
+    <!-- Audio Chapters Section -->
+    <section class="chapters-section">
+        <div class="chapters-bg">
+            <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="chapters-overlay"></div>
+        
+        <div class="chapters-container">
+            <div class="chapter-card" data-time="0">
+                <div class="chapter-number">01 / Intro</div>
+                <h5>The Sovereign AI Corridor</h5>
+                <p>Canada's first purpose-built infrastructure</p>
+                <div class="chapter-time">0:00</div>
+            </div>
+            <div class="chapter-card" data-time="60">
+                <div class="chapter-number">02 / Land</div>
+                <h5>500+ Acres Industrial Zoned Land</h5>
+                <p>Strategic nodes at Niagara & Haldimand</p>
+                <div class="chapter-time">1:00</div>
+            </div>
+            <div class="chapter-card" data-time="120">
+                <div class="chapter-number">03 / Power</div>
+                <h5>2+ GW Grid Capacity</h5>
+                <p>500kV/230kV grid-locked interconnection</p>
+                <div class="chapter-time">2:00</div>
+            </div>
+            <div class="chapter-card" data-time="180">
+                <div class="chapter-number">04 / Cooling</div>
+                <h5>PUE &lt; 1.1</h5>
+                <p>St. Lawrence cooling superhighway</p>
+                <div class="chapter-time">3:00</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="video-badge">
+                <span class="video-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                    </svg>
+                </span>
+                <span>Video Documentary</span>
+            </div>
+            
+            <h2 class="video-title">The Perfect AI<br>Megaproject</h2>
+            <p class="video-subtitle">Documentary feature — 12 minutes</p>
+            
+            <!-- Main Video Player -->
+            <div class="video-player-wrapper">
+                <video id="main-video" class="main-video" poster="video-player-poster.png" preload="metadata">
+                    <source src="sovereign-ai-corridor-website-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <!-- Video Logo Watermark -->
+                <div class="video-logo-overlay">
+                    <svg viewBox="0 0 180 32" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background pill - white -->
+                        <rect x="0" y="0" width="180" height="32" rx="16" fill="rgba(255,255,255,0.95)"/>
+                        <!-- Border -->
+                        <rect x="0.5" y="0.5" width="179" height="31" rx="15.5" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+                        <!-- Text: SOVEREIGN AI CORRIDOR - black -->
+                        <text x="90" y="20" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" 
+                              fill="#1A1A1A" letter-spacing="0.12em" text-anchor="middle">SOVEREIGN AI CORRIDOR</text>
+                    </svg>
+                </div>
+                
+                <!-- Video Controls Overlay -->
+                <div class="video-controls" id="video-controls">
+                    <button class="video-play-btn" id="video-play-btn">
+                        <span class="video-play-icon"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Video Progress -->
+            <div class="video-progress-area">
+                <div class="video-progress" id="video-progress-container">
+                    <div class="video-progress-bar" id="video-progress-bar"></div>
+                </div>
+                <div class="video-time">
+                    <span id="video-current-time">0:00</span>
+                    <span id="video-duration">12:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cinematic Film Sections -->
+    <section class="cinematic-section">
+        
+        <!-- Section 1: Foundation -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">01 / Foundation</p>
+                <h2 class="film-title">Industrial Zoned Foundation</h2>
+                <p class="film-description">Federal & Provincial Industrial zoned land — 500+ acres sovereign-controlled.</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Power -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">02 / Power</p>
+                <h2 class="film-title">500kV / 230kV Grid</h2>
+                <p class="film-description">Direct-tap easements. Grid-locked interconnection ready.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: 500+ Industrial Zoned Land -->
+        <div class="film-section center-number">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <div class="film-big-number">500+</div>
+                <p class="film-big-label">Industrial Zoned Land</p>
+            </div>
+        </div>
+
+        <!-- Section 4: Cooling -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">03 / Cooling</p>
+                <h2 class="film-title">Cooling Superhighway</h2>
+                <p class="film-description">St. Lawrence + Lake Erie cooling. PUE < 1.1</p>
+            </div>
+        </div>
+
+        <!-- Section 5: Nodes -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">04 / Nodes</p>
+                <h2 class="film-title">Niagara & Haldimand</h2>
+                <p class="film-description">308 acres + 237 acres. Canada's sovereign AI corridor.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Data Section -->
+    <section class="data-section">
+        <div class="section-header">
+            <div>
+                <span class="section-label">/25 Infrastructure Spec</span>
+                <h2 class="section-title">The Corridor Already Exists</h2>
+            </div>
+        </div>
+        <div class="data-grid">
+            <div class="data-card">
+                <h4>Total Acreage</h4>
+                <div class="value">545<span class="unit">ac</span></div>
+            </div>
+            <div class="data-card">
+                <h4>Grid Capacity</h4>
+                <div class="value">2+<span class="unit">GW</span></div>
+            </div>
+            <div class="data-card">
+                <h4>Niagara Node</h4>
+                <div class="value">308<span class="unit">ac</span></div>
+            </div>
+            <div class="data-card">
+                <h4>Haldimand Node</h4>
+                <div class="value">237<span class="unit">ac</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-container">
+            <div class="quote-image">
+                <img src="danloney.jpg" alt="Dan Loney - Sovereign AI Corridor">
+            </div>
+            <div class="quote-content">
+                <blockquote>"This is a flagship infrastructure corridor, on par with the Trans-Canada Highway or the St. Lawrence Seaway system — except we are not just moving people or freight; we are anchoring Canada's sovereign-AI-compute and grid-resilience future."</blockquote>
+                <div class="quote-attribution">
+                    <span class="quote-divider"></span>
+                    <div>
+                        <div class="name">Dan Loney</div>
+                        <div class="title">Sovereign AI Corridor Inc.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-right">
+            <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Time update
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                timeZone: 'America/Toronto',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('local-time').textContent = `Toronto — ${timeString}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Audio Player
+        const audio = document.getElementById('corridor-audio');
+        const playBtn = document.getElementById('audio-play-btn');
+        const playText = playBtn.querySelector('.play-text');
+        const progressBar = document.getElementById('audio-progress');
+        const progressContainer = document.getElementById('audio-progress-container');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const chapterCards = document.querySelectorAll('.chapter-card');
+        const waveform = document.getElementById('waveform');
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.classList.add('playing');
+                waveform.classList.add('playing');
+                playText.textContent = 'Pause Podcast';
+            } else {
+                audio.pause();
+                playBtn.classList.remove('playing');
+                waveform.classList.remove('playing');
+                playText.textContent = 'Play Podcast';
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            
+            chapterCards.forEach(card => {
+                const cardTime = parseInt(card.dataset.time);
+                const nextCardTime = cardTime + 60;
+                if (audio.currentTime >= cardTime && audio.currentTime < nextCardTime) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('ended', () => {
+            playBtn.classList.remove('playing');
+            waveform.classList.remove('playing');
+            playText.textContent = 'Play Podcast';
+        });
+
+        // Click on progress bar to seek
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = clickX / rect.width;
+            audio.currentTime = percent * audio.duration;
+        });
+
+        chapterCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const time = parseInt(card.dataset.time);
+                audio.currentTime = time;
+                if (audio.paused) {
+                    audio.play();
+                    playBtn.classList.add('playing');
+                    waveform.classList.add('playing');
+                    playText.textContent = 'Pause Podcast';
+                }
+            });
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Video Player
+        const mainVideo = document.getElementById('main-video');
+        const videoPlayBtn = document.getElementById('video-play-btn');
+        const videoControls = document.getElementById('video-controls');
+        const videoProgressBar = document.getElementById('video-progress-bar');
+        const videoProgressContainer = document.getElementById('video-progress-container');
+        const videoCurrentTime = document.getElementById('video-current-time');
+        const videoDuration = document.getElementById('video-duration');
+
+        if (mainVideo && videoPlayBtn) {
+            videoPlayBtn.addEventListener('click', () => {
+                if (mainVideo.paused) {
+                    mainVideo.play();
+                    videoPlayBtn.classList.add('playing');
+                    videoControls.classList.add('hidden');
+                } else {
+                    mainVideo.pause();
+                    videoPlayBtn.classList.remove('playing');
+                    videoControls.classList.remove('hidden');
+                }
+            });
+
+            mainVideo.addEventListener('click', () => {
+                if (!mainVideo.paused) {
+                    mainVideo.pause();
+                    videoPlayBtn.classList.remove('playing');
+                    videoControls.classList.remove('hidden');
+                }
+            });
+
+            mainVideo.addEventListener('timeupdate', () => {
+                const progress = (mainVideo.currentTime / mainVideo.duration) * 100;
+                videoProgressBar.style.width = progress + '%';
+                videoCurrentTime.textContent = formatTime(mainVideo.currentTime);
+            });
+
+            mainVideo.addEventListener('loadedmetadata', () => {
+                videoDuration.textContent = formatTime(mainVideo.duration);
+            });
+
+            mainVideo.addEventListener('ended', () => {
+                videoPlayBtn.classList.remove('playing');
+                videoControls.classList.remove('hidden');
+            });
+
+            videoProgressContainer.addEventListener('click', (e) => {
+                const rect = videoProgressContainer.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percent = clickX / rect.width;
+                mainVideo.currentTime = percent * mainVideo.duration;
+            });
+        }
+
+        // Film sections reveal animation
+        const filmSections = document.querySelectorAll('.film-section');
+        filmSections.forEach((section, index) => {
+            const content = section.querySelector('.film-content');
+            
+            gsap.from(content, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    scrub: 1
+                },
+                opacity: 0,
+                y: 60
+            });
+
+            gsap.to(content, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'bottom 80%',
+                    end: 'bottom 20%',
+                    scrub: 1
+                },
+                opacity: 0,
+                y: -60
+            });
+        });
+
+        // Data cards animation
+        gsap.from('.data-card', {
+            scrollTrigger: {
+                trigger: '.data-section',
+                start: 'top 70%'
+            },
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power3.out'
+        });
+
+        // Quote animation
+        gsap.from('.quote-container', {
+            scrollTrigger: {
+                trigger: '.quote-section',
+                start: 'top 70%'
+            },
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        });
+    </script>
+</body>
+</html>
