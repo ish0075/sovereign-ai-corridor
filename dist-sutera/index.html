@@ -902,8 +902,8 @@
         }
 
         .video-play-btn {
-            width: 80px;
-            height: 80px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             background: #fff;
             border: none;
@@ -911,20 +911,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.35);
         }
 
         .video-play-btn:hover {
-            transform: scale(1.08);
+            transform: scale(1.12);
+            box-shadow: 0 12px 50px rgba(0,0,0,0.45);
         }
 
         .video-play-icon {
             width: 0;
             height: 0;
-            border-left: 22px solid #000;
-            border-top: 14px solid transparent;
-            border-bottom: 14px solid transparent;
-            margin-left: 4px;
+            border-left: 42px solid #000;
+            border-top: 26px solid transparent;
+            border-bottom: 26px solid transparent;
+            margin-left: 8px;
         }
 
         /* Video Progress */
@@ -1374,14 +1376,14 @@
             }
 
             .video-play-btn {
-                width: 70px;
-                height: 70px;
+                width: 100px;
+                height: 100px;
             }
 
             .video-play-icon {
-                border-left-width: 20px;
-                border-top-width: 12px;
-                border-bottom-width: 12px;
+                border-left-width: 32px;
+                border-top-width: 20px;
+                border-bottom-width: 20px;
             }
 
             .hero-video-logo {
