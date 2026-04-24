@@ -9,13 +9,7 @@
       "destination": "/api/$1"
     }
   ],
-  "redirects": [
-    {
-      "source": "www.sovereignaicorridor.ca/:path*",
-      "destination": "https://sovereignaicorridor.ca/:path*",
-      "permanent": true
-    }
-  ],
+  "redirects": [],
   "headers": [
     {
       "source": "/api/(.*)",
