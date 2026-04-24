@@ -579,7 +579,7 @@ function CorridorSection() {
               />
               <div className="flex-1 w-full">
                 <p className="text-lg sm:text-xl lg:text-2xl text-gray-200 leading-relaxed font-orbitron tracking-wide" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.9)' }}>
-                  "This is a flagship infrastructure corridor, on par with the Trans‑Canada Highway or the St. Lawrence Seaway system—except we are not just moving people or freight; we are anchoring Canada's sovereign‑AI‑compute and grid‑resilience future."
+                  "This is a flagship infrastructure corridor 'The Alley', is on par with the Trans‑Canada Highway or the St. Lawrence Seaway system—except we are not just moving people or freight; we are anchoring Canada's sovereign‑AI‑compute and grid‑ resilience future."
                 </p>
                 <p className="text-lg text-teal mt-4 font-orbitron">— Dan Loney, Sovereign AI Corridor Inc.</p>
               </div>
@@ -934,7 +934,7 @@ function FlagshipSection() {
 
           <div className="animate-in sci-fi-card p-8 lg:p-12 border border-teal/30 bg-gradient-to-r from-teal/5 via-transparent to-teal/5">
             <p className="text-xl lg:text-2xl text-gray-200 leading-relaxed text-center font-orbitron tracking-wide">
-              "This is a flagship infrastructure corridor, on par with the Trans‑Canada Highway or the St. Lawrence Seaway system—except we are not just moving people or freight; we are anchoring Canada's sovereign‑AI‑compute and grid‑resilience future."
+              "This is a flagship infrastructure corridor 'The Alley', is on par with the Trans‑Canada Highway or the St. Lawrence Seaway system—except we are not just moving people or freight; we are anchoring Canada's sovereign‑AI‑compute and grid‑ resilience future."
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-400">
               <div className="flex items-center gap-2">
