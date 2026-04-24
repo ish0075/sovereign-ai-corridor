@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing — Sovereign AI Corridor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #E8E6E1;
+            --bg-secondary: #D5D3CC;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent-red: #E63946;
+            --accent-cyan: #00D9FF;
+            --border: #1A1A1A;
+            --grid-line: rgba(26,26,26,0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .change-reality-btn {
+            padding: 12px 24px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-reality-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            color: white;
+        }
+
+        .main-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-bottom-color: white;
+        }
+
+        .time-display {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .menu-trigger {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-trigger span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: white;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 140px 40px 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .page-description {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Audio Player Section */
+        .audio-player-section {
+            padding: 80px 40px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .audio-player-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .audio-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .audio-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: #000;
+            color: #fff;
+            padding: 10px 18px;
+        }
+
+        .audio-duration {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .main-play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #000;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin-bottom: 40px;
+        }
+
+        .main-play-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent-cyan);
+        }
+
+        .main-play-btn.playing {
+            background: var(--accent-red);
+        }
+
+        .main-play-icon {
+            width: 0;
+            height: 0;
+            border-left: 20px solid #fff;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .main-play-btn.playing .main-play-icon {
+            width: 20px;
+            height: 24px;
+            border: none;
+            background: #fff;
+            position: relative;
+            margin-left: 0;
+        }
+
+        .main-play-btn.playing .main-play-icon::before,
+        .main-play-btn.playing .main-play-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 7px;
+            height: 100%;
+            background: #000;
+        }
+
+        .main-play-btn.playing .main-play-icon::before { left: 0; }
+        .main-play-btn.playing .main-play-icon::after { right: 0; }
+
+        .audio-title-large {
+            font-family: 'Syne', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .audio-description {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .progress-container {
+            margin-bottom: 60px;
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #000;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-display-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Chapters */
+        .chapters-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chapter-item {
+            display: grid;
+            grid-template-columns: 80px 1fr 60px;
+            gap: 24px;
+            align-items: center;
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-item:hover,
+        .chapter-item.active {
+            background: #000;
+            border-color: #000;
+        }
+
+        .chapter-item:hover .chapter-num,
+        .chapter-item.active .chapter-num {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .chapter-item:hover .chapter-title-text,
+        .chapter-item.active .chapter-title-text {
+            color: #fff;
+        }
+
+        .chapter-item:hover .chapter-desc,
+        .chapter-item.active .chapter-desc {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .chapter-item:hover .chapter-time-val,
+        .chapter-item.active .chapter-time-val {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .chapter-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .chapter-info h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .chapter-info p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .chapter-time-val {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: right;
+            transition: color 0.3s ease;
+        }
+
+        /* Document Download */
+        .document-section {
+            padding: 80px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .document-card {
+            border: 1px solid var(--border);
+            padding: 32px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .document-card:hover {
+            background: #000;
+            border-color: #000;
+            transform: translateY(-4px);
+        }
+
+        .document-card:hover .doc-icon,
+        .document-card:hover .doc-title,
+        .document-card:hover .doc-meta {
+            color: #fff;
+        }
+
+        .doc-icon {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .doc-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .doc-meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .document-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+
+            .document-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chapter-item {
+                grid-template-columns: 60px 1fr;
+            }
+
+            .chapter-time-val {
+                display: none;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">SOVEREIGN AI CORRIDOR</a>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="grid-map.html" class="nav-link">Grid Map</a>
+            <a href="briefing.html" class="nav-link">Briefing</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <div class="header-right">
+            <span class="time-display" id="local-time">Toronto — --:--</span>
+            <div class="menu-trigger">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <p class="page-label">/03 Executive Briefing</p>
+            <h1 class="page-title">Briefing</h1>
+            <p class="page-description">Complete audio briefing and documentation for the Sovereign AI Corridor infrastructure project. Available for download or streaming.</p>
+        </div>
+    </section>
+
+    <!-- Audio Player Section -->
+    <section class="audio-player-section">
+        <div class="audio-player-container">
+            <div class="audio-header">
+                <span class="audio-badge">Audio Podcast</span>
+                <span class="audio-duration">32:00</span>
+            </div>
+
+            <button class="main-play-btn" id="main-play-btn">
+                <span class="main-play-icon"></span>
+            </button>
+
+            <h2 class="audio-title-large">Ontario's Sovereign AI Corridor Power Belt</h2>
+            <p class="audio-description">An in-depth briefing on the Sovereign AI Corridor infrastructure megaproject. Covering the power belt strategy, land assembly across Allanburg and Nanticoke, transmission interconnection, and Canada's position as a global AI compute destination.</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="time-display-bar">
+                    <span id="current-time">0:00</span>
+                    <span id="duration">32:00</span>
+                </div>
+            </div>
+
+            <audio id="audio-player" src="audio/Ontario_s_Sovereign_AI_Corridor_Power_Belt.m4a" preload="metadata"></audio>
+
+            <div class="chapters-list">
+                <div class="chapter-item" data-time="0">
+                    <span class="chapter-num">01</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Introduction</h4>
+                        <p class="chapter-desc">The Sovereign AI Corridor vision</p>
+                    </div>
+                    <span class="chapter-time-val">0:00</span>
+                </div>
+                <div class="chapter-item" data-time="300">
+                    <span class="chapter-num">02</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">The Power Belt Strategy</h4>
+                        <p class="chapter-desc">Ontario's transmission backbone</p>
+                    </div>
+                    <span class="chapter-time-val">5:00</span>
+                </div>
+                <div class="chapter-item" data-time="900">
+                    <span class="chapter-num">03</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Allanburg & Nanticoke Sites</h4>
+                        <p class="chapter-desc">Dual-site land assembly</p>
+                    </div>
+                    <span class="chapter-time-val">15:00</span>
+                </div>
+                <div class="chapter-item" data-time="1500">
+                    <span class="chapter-num">04</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Deployment Roadmap</h4>
+                        <p class="chapter-desc">Timeline and next steps</p>
+                    </div>
+                    <span class="chapter-time-val">25:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Player Section 2 -->
+    <section class="audio-player-section" style="background: var(--bg-primary); border-top: 1px solid var(--border);">
+        <div class="audio-player-container">
+            <div class="audio-header">
+                <span class="audio-badge">Audio Briefing</span>
+                <span class="audio-duration">29:30</span>
+            </div>
+
+            <button class="main-play-btn" id="main-play-btn-2">
+                <span class="main-play-icon"></span>
+            </button>
+
+            <h2 class="audio-title-large">Canada's Pre-Built Sovereign AI Corridor</h2>
+            <p class="audio-description">A comprehensive briefing on Canada's ready-to-deploy sovereign AI infrastructure. Exploring the pre-built advantages, regulatory framework, and why Canada is positioned to become the world's leading AI compute destination.</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar-2">
+                    <div class="progress-fill" id="progress-fill-2"></div>
+                </div>
+                <div class="time-display-bar">
+                    <span id="current-time-2">0:00</span>
+                    <span id="duration-2">29:30</span>
+                </div>
+            </div>
+
+            <audio id="audio-player-2" src="audio/Canada_s_pre-built_sovereign_AI_corridor.m4a" preload="metadata"></audio>
+
+            <div class="chapters-list">
+                <div class="chapter-item" data-time="0" data-player="2">
+                    <span class="chapter-num">01</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Executive Overview</h4>
+                        <p class="chapter-desc">Canada's sovereign AI advantage</p>
+                    </div>
+                    <span class="chapter-time-val">0:00</span>
+                </div>
+                <div class="chapter-item" data-time="420" data-player="2">
+                    <span class="chapter-num">02</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Infrastructure Ready</h4>
+                        <p class="chapter-desc">Pre-built capabilities</p>
+                    </div>
+                    <span class="chapter-time-val">7:00</span>
+                </div>
+                <div class="chapter-item" data-time="900" data-player="2">
+                    <span class="chapter-num">03</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Sovereign Framework</h4>
+                        <p class="chapter-desc">Regulatory & security</p>
+                    </div>
+                    <span class="chapter-time-val">15:00</span>
+                </div>
+                <div class="chapter-item" data-time="1380" data-player="2">
+                    <span class="chapter-num">04</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Global Positioning</h4>
+                        <p class="chapter-desc">Why Canada, why now</p>
+                    </div>
+                    <span class="chapter-time-val">23:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Player Section 3 -->
+    <section class="audio-player-section" style="background: var(--bg-secondary); border-top: 1px solid var(--border);">
+        <div class="audio-player-container">
+            <div class="audio-header">
+                <span class="audio-badge">Audio Briefing</span>
+                <span class="audio-duration">27:00</span>
+            </div>
+
+            <button class="main-play-btn" id="main-play-btn-3">
+                <span class="main-play-icon"></span>
+            </button>
+
+            <h2 class="audio-title-large">The Thor1 Sovereign AI Battery Fortress</h2>
+            <p class="audio-description">Deep dive into the Thor1 battery fortress architecture. Exploring energy storage integration, resilience engineering, and how this infrastructure enables 24/7 sovereign AI compute operations with grid independence.</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar-3">
+                    <div class="progress-fill" id="progress-fill-3"></div>
+                </div>
+                <div class="time-display-bar">
+                    <span id="current-time-3">0:00</span>
+                    <span id="duration-3">27:00</span>
+                </div>
+            </div>
+
+            <audio id="audio-player-3" src="audio/The_Thor1_Sovereign_AI_battery_fortress.m4a" preload="metadata"></audio>
+
+            <div class="chapters-list">
+                <div class="chapter-item" data-time="0" data-player="3">
+                    <span class="chapter-num">01</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Thor1 Introduction</h4>
+                        <p class="chapter-desc">Battery fortress concept</p>
+                    </div>
+                    <span class="chapter-time-val">0:00</span>
+                </div>
+                <div class="chapter-item" data-time="360" data-player="3">
+                    <span class="chapter-num">02</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Energy Architecture</h4>
+                        <p class="chapter-desc">Storage & distribution</p>
+                    </div>
+                    <span class="chapter-time-val">6:00</span>
+                </div>
+                <div class="chapter-item" data-time="900" data-player="3">
+                    <span class="chapter-num">03</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Grid Independence</h4>
+                        <p class="chapter-desc">Resilience & uptime</p>
+                    </div>
+                    <span class="chapter-time-val">15:00</span>
+                </div>
+                <div class="chapter-item" data-time="1320" data-player="3">
+                    <span class="chapter-num">04</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Operations 24/7</h4>
+                        <p class="chapter-desc">Sovereign AI compute</p>
+                    </div>
+                    <span class="chapter-time-val">22:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Player Section 4 -->
+    <section class="audio-player-section" style="background: var(--bg-primary); border-top: 1px solid var(--border);">
+        <div class="audio-player-container">
+            <div class="audio-header">
+                <span class="audio-badge">Audio Briefing</span>
+                <span class="audio-duration">28:30</span>
+            </div>
+
+            <button class="main-play-btn" id="main-play-btn-4">
+                <span class="main-play-icon"></span>
+            </button>
+
+            <h2 class="audio-title-large">Ontario's 545 Acre Sovereign AI Corridor</h2>
+            <p class="audio-description">Detailed briefing on the 545-acre land assembly across Allanburg and Nanticoke. Covering site specifications, development phases, and the strategic advantages of this Crown land positioning for hyperscale AI infrastructure.</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar-4">
+                    <div class="progress-fill" id="progress-fill-4"></div>
+                </div>
+                <div class="time-display-bar">
+                    <span id="current-time-4">0:00</span>
+                    <span id="duration-4">28:30</span>
+                </div>
+            </div>
+
+            <audio id="audio-player-4" src="audio/Ontario_s_545_Acre_Sovereign_AI_Corridor.m4a" preload="metadata"></audio>
+
+            <div class="chapters-list">
+                <div class="chapter-item" data-time="0" data-player="4">
+                    <span class="chapter-num">01</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Land Overview</h4>
+                        <p class="chapter-desc">545 acres strategic assembly</p>
+                    </div>
+                    <span class="chapter-time-val">0:00</span>
+                </div>
+                <div class="chapter-item" data-time="420" data-player="4">
+                    <span class="chapter-num">02</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Allanburg Site</h4>
+                        <p class="chapter-desc">Specifications & capabilities</p>
+                    </div>
+                    <span class="chapter-time-val">7:00</span>
+                </div>
+                <div class="chapter-item" data-time="960" data-player="4">
+                    <span class="chapter-num">03</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Nanticoke Site</h4>
+                        <p class="chapter-desc">Power & water access</p>
+                    </div>
+                    <span class="chapter-time-val">16:00</span>
+                </div>
+                <div class="chapter-item" data-time="1380" data-player="4">
+                    <span class="chapter-num">04</span>
+                    <div class="chapter-info">
+                        <h4 class="chapter-title-text">Development Phases</h4>
+                        <p class="chapter-desc">Build-out timeline</p>
+                    </div>
+                    <span class="chapter-time-val">23:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Download Section -->
+    <section class="document-section">
+        <div class="document-grid">
+            <div class="document-card">
+                <div class="doc-icon">PDF</div>
+                <h3 class="doc-title">Executive Summary</h3>
+                <p class="doc-meta">12 pages • 2.4 MB</p>
+            </div>
+            <div class="document-card">
+                <div class="doc-icon">PDF</div>
+                <h3 class="doc-title">Technical Specifications</h3>
+                <p class="doc-meta">48 pages • 8.1 MB</p>
+            </div>
+            <div class="document-card">
+                <div class="doc-icon">PDF</div>
+                <h3 class="doc-title">Grid Interconnection Report</h3>
+                <p class="doc-meta">24 pages • 4.6 MB</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">© 2026 Sovereign AI Corridor Inc.</div>
+        <div class="footer-right">
+            <a href="grid-map.html" class="footer-link">Grid Map</a>
+            <a href="briefing.html" class="footer-link">Briefing</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Time update
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                timeZone: 'America/Toronto',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('local-time').textContent = `Toronto — ${timeString}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Audio Player
+        const audio = document.getElementById('audio-player');
+        const playBtn = document.getElementById('main-play-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressFill = document.getElementById('progress-fill');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const chapterItems = document.querySelectorAll('.chapter-item:not([data-player="2"])');
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.classList.add('playing');
+                // Pause other players if playing
+                if (!audio2.paused) {
+                    audio2.pause();
+                    playBtn2.classList.remove('playing');
+                }
+                if (!audio3.paused) {
+                    audio3.pause();
+                    playBtn3.classList.remove('playing');
+                }
+                if (!audio4.paused) {
+                    audio4.pause();
+                    playBtn4.classList.remove('playing');
+                }
+            } else {
+                audio.pause();
+                playBtn.classList.remove('playing');
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = progress + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            
+            chapterItems.forEach(item => {
+                const itemTime = parseInt(item.dataset.time);
+                if (audio.currentTime >= itemTime) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = clickX / rect.width;
+            audio.currentTime = percent * audio.duration;
+        });
+
+        chapterItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const time = parseInt(item.dataset.time);
+                audio.currentTime = time;
+                if (audio.paused) {
+                    audio.play();
+                    playBtn.classList.add('playing');
+                }
+            });
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Audio Player 2
+        const audio2 = document.getElementById('audio-player-2');
+        const playBtn2 = document.getElementById('main-play-btn-2');
+        const progressBar2 = document.getElementById('progress-bar-2');
+        const progressFill2 = document.getElementById('progress-fill-2');
+        const currentTimeEl2 = document.getElementById('current-time-2');
+        const durationEl2 = document.getElementById('duration-2');
+        const chapterItems2 = document.querySelectorAll('.chapter-item[data-player="2"]');
+
+        playBtn2.addEventListener('click', () => {
+            if (audio2.paused) {
+                audio2.play();
+                playBtn2.classList.add('playing');
+                // Pause other players if playing
+                if (!audio.paused) {
+                    audio.pause();
+                    playBtn.classList.remove('playing');
+                }
+                if (!audio3.paused) {
+                    audio3.pause();
+                    playBtn3.classList.remove('playing');
+                }
+                if (!audio4.paused) {
+                    audio4.pause();
+                    playBtn4.classList.remove('playing');
+                }
+            } else {
+                audio2.pause();
+                playBtn2.classList.remove('playing');
+            }
+        });
+
+        audio2.addEventListener('timeupdate', () => {
+            const progress = (audio2.currentTime / audio2.duration) * 100;
+            progressFill2.style.width = progress + '%';
+            currentTimeEl2.textContent = formatTime(audio2.currentTime);
+            
+            chapterItems2.forEach(item => {
+                const itemTime = parseInt(item.dataset.time);
+                if (audio2.currentTime >= itemTime) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        });
+
+        audio2.addEventListener('loadedmetadata', () => {
+            durationEl2.textContent = formatTime(audio2.duration);
+        });
+
+        progressBar2.addEventListener('click', (e) => {
+            const rect = progressBar2.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = clickX / rect.width;
+            audio2.currentTime = percent * audio2.duration;
+        });
+
+        chapterItems2.forEach(item => {
+            item.addEventListener('click', () => {
+                const time = parseInt(item.dataset.time);
+                audio2.currentTime = time;
+                if (audio2.paused) {
+                    audio2.play();
+                    playBtn2.classList.add('playing');
+                }
+            });
+        });
+
+        // Audio Player 3
+        const audio3 = document.getElementById('audio-player-3');
+        const playBtn3 = document.getElementById('main-play-btn-3');
+        const progressBar3 = document.getElementById('progress-bar-3');
+        const progressFill3 = document.getElementById('progress-fill-3');
+        const currentTimeEl3 = document.getElementById('current-time-3');
+        const durationEl3 = document.getElementById('duration-3');
+        const chapterItems3 = document.querySelectorAll('.chapter-item[data-player="3"]');
+
+        playBtn3.addEventListener('click', () => {
+            if (audio3.paused) {
+                audio3.play();
+                playBtn3.classList.add('playing');
+                // Pause other players if playing
+                if (!audio.paused) {
+                    audio.pause();
+                    playBtn.classList.remove('playing');
+                }
+                if (!audio2.paused) {
+                    audio2.pause();
+                    playBtn2.classList.remove('playing');
+                }
+                if (!audio4.paused) {
+                    audio4.pause();
+                    playBtn4.classList.remove('playing');
+                }
+            } else {
+                audio3.pause();
+                playBtn3.classList.remove('playing');
+            }
+        });
+
+        audio3.addEventListener('timeupdate', () => {
+            const progress = (audio3.currentTime / audio3.duration) * 100;
+            progressFill3.style.width = progress + '%';
+            currentTimeEl3.textContent = formatTime(audio3.currentTime);
+            
+            chapterItems3.forEach(item => {
+                const itemTime = parseInt(item.dataset.time);
+                if (audio3.currentTime >= itemTime) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        });
+
+        audio3.addEventListener('loadedmetadata', () => {
+            durationEl3.textContent = formatTime(audio3.duration);
+        });
+
+        progressBar3.addEventListener('click', (e) => {
+            const rect = progressBar3.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = clickX / rect.width;
+            audio3.currentTime = percent * audio3.duration;
+        });
+
+        chapterItems3.forEach(item => {
+            item.addEventListener('click', () => {
+                const time = parseInt(item.dataset.time);
+                audio3.currentTime = time;
+                if (audio3.paused) {
+                    audio3.play();
+                    playBtn3.classList.add('playing');
+                }
+            });
+        });
+
+        // Audio Player 4
+        const audio4 = document.getElementById('audio-player-4');
+        const playBtn4 = document.getElementById('main-play-btn-4');
+        const progressBar4 = document.getElementById('progress-bar-4');
+        const progressFill4 = document.getElementById('progress-fill-4');
+        const currentTimeEl4 = document.getElementById('current-time-4');
+        const durationEl4 = document.getElementById('duration-4');
+        const chapterItems4 = document.querySelectorAll('.chapter-item[data-player="4"]');
+
+        playBtn4.addEventListener('click', () => {
+            if (audio4.paused) {
+                audio4.play();
+                playBtn4.classList.add('playing');
+                // Pause other players if playing
+                if (!audio.paused) {
+                    audio.pause();
+                    playBtn.classList.remove('playing');
+                }
+                if (!audio2.paused) {
+                    audio2.pause();
+                    playBtn2.classList.remove('playing');
+                }
+                if (!audio3.paused) {
+                    audio3.pause();
+                    playBtn3.classList.remove('playing');
+                }
+            } else {
+                audio4.pause();
+                playBtn4.classList.remove('playing');
+            }
+        });
+
+        audio4.addEventListener('timeupdate', () => {
+            const progress = (audio4.currentTime / audio4.duration) * 100;
+            progressFill4.style.width = progress + '%';
+            currentTimeEl4.textContent = formatTime(audio4.currentTime);
+            
+            chapterItems4.forEach(item => {
+                const itemTime = parseInt(item.dataset.time);
+                if (audio4.currentTime >= itemTime) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        });
+
+        audio4.addEventListener('loadedmetadata', () => {
+            durationEl4.textContent = formatTime(audio4.duration);
+        });
+
+        progressBar4.addEventListener('click', (e) => {
+            const rect = progressBar4.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = clickX / rect.width;
+            audio4.currentTime = percent * audio4.duration;
+        });
+
+        chapterItems4.forEach(item => {
+            item.addEventListener('click', () => {
+                const time = parseInt(item.dataset.time);
+                audio4.currentTime = time;
+                if (audio4.paused) {
+                    audio4.play();
+                    playBtn4.classList.add('playing');
+                }
+            });
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.chapter-item', {
+            scrollTrigger: {
+                trigger: '.chapters-list',
+                start: 'top 80%'
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.document-card', {
+            scrollTrigger: {
+                trigger: '.document-section',
+                start: 'top 70%'
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+    </script>
+</body>
+</html>

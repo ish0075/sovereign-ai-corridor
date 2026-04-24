@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOVEREIGN AI CORRIDOR — Infrastructure by Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #E8E6E1;
+            --bg-secondary: #E8E6E1;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent-red: #E63946;
+            --accent-cyan: #00D9FF;
+            --border: #1A1A1A;
+            --grid-line: rgba(26,26,26,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+
+        .grid-plus {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .grid-plus::before,
+        .grid-plus::after {
+            content: '';
+            position: absolute;
+            background: var(--text-primary);
+            opacity: 0.3;
+        }
+
+        .grid-plus::before {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid-plus::after {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .change-reality-btn {
+            padding: 12px 24px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-reality-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            color: white;
+        }
+
+        .time-display {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .menu-trigger {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-trigger span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: white;
+        }
+
+        /* Hero Layout - Split Design */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 45% 55%;
+        }
+
+        /* Left Side - Content */
+        .hero-content {
+            padding: 100px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 20;
+        }
+
+        .hero-title h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 56px;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            max-width: 500px;
+            margin-bottom: 16px;
+        }
+
+        .hero-title .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+        }
+
+        .hero-intro {
+            max-width: 420px;
+            margin-top: 40px;
+        }
+
+        .hero-intro p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat .value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 28px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .hero-stat .label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+        }
+
+        .core-threads {
+            margin-top: auto;
+            padding-top: 40px;
+        }
+
+        .core-threads h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .thread-list {
+            list-style: none;
+            max-width: 300px;
+        }
+
+        .thread-list li {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .thread-list li::before {
+            content: '→';
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+        }
+
+        /* Right Side - 3D Canvas */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #canvas-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            aspect-ratio: 16 / 9;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.3));
+            transform: scale(1.08);
+        }
+
+        .watermark-cover {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 110px;
+            height: 42px;
+            background: #c7c5be;
+            border-radius: 4px;
+            z-index: 5;
+            filter: blur(2px);
+        }
+
+        /* Annotations - Positioned around the right side */
+        .annotation {
+            position: absolute;
+            z-index: 30;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            max-width: 160px;
+        }
+
+        .annotation-line {
+            width: 20px;
+            height: 1px;
+            background: var(--border);
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .annotation-content {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.03em;
+            line-height: 1.4;
+        }
+
+        .annotation-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+        }
+
+        .annotation-desc {
+            color: var(--text-secondary);
+        }
+
+        .annotation-1 { top: 120px; right: 40px; flex-direction: row-reverse; text-align: right; }
+        .annotation-2 { top: 45%; right: 30px; flex-direction: row-reverse; text-align: right; }
+        .annotation-3 { bottom: 200px; right: 40px; flex-direction: row-reverse; text-align: right; }
+        .annotation-4 { bottom: 100px; left: 40px; }
+
+        /* Bio Card - Bottom Right Overlay */
+        .bio-card {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            width: 260px;
+            z-index: 30;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            padding: 20px;
+        }
+
+        .bio-card h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+        }
+
+        .bio-card p {
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        /* Sections */
+        section {
+            position: relative;
+            padding: 100px 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 600;
+            max-width: 500px;
+            line-height: 1.1;
+        }
+
+        /* Data Cards */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .data-card {
+            border: 1px solid var(--border);
+            padding: 24px;
+            position: relative;
+            background: var(--bg-secondary);
+        }
+
+        .data-card::before {
+            content: '+';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+        }
+
+        .data-card h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .data-card .value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .data-card .unit {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-left: 4px;
+        }
+
+        /* Quote Block */
+        .quote-block {
+            padding: 80px 40px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .quote-block blockquote {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 500;
+            line-height: 1.4;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quote-attribution {
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        .quote-attribution .name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .quote-attribution .title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            border-bottom-color: var(--border);
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-visual {
+                min-height: 60vh;
+                order: -1;
+            }
+            
+            .annotation {
+                display: none;
+            }
+            
+            .data-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bio-card {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+            }
+            
+            .hero-content {
+                padding: 80px 20px 20px;
+            }
+            
+            .hero-title h1 {
+                font-size: 36px;
+            }
+            
+            section {
+                padding: 60px 20px;
+            }
+            
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+    <div class="grid-plus" style="top: 100px; left: 100px;"></div>
+    <div class="grid-plus" style="top: 100px; right: 100px;"></div>
+    <div class="grid-plus" style="bottom: 100px; left: 100px;"></div>
+    <div class="grid-plus" style="bottom: 100px; right: 100px;"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">SOVEREIGN AI CORRIDOR</div>
+        <div class="header-center">
+            <button class="change-reality-btn">Change Reality</button>
+        </div>
+        <div class="header-right">
+            <span class="time-display" id="local-time">Toronto — 10:30 AM</span>
+            <div class="menu-trigger">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - Split Layout -->
+    <section class="hero">
+        <!-- Left Side: Content -->
+        <div class="hero-content">
+            <div>
+                <div class="hero-title">
+                    <h1>SOVEREIGN BY INFRASTRUCTURE.</h1>
+                    <span class="tag">500kV — Crown Land — Ready Now</span>
+                </div>
+
+                <div class="hero-intro">
+                    <p>Sovereign AI Corridor Inc. has assembled 545+ acres across two strategic nodes — Allanburg and Nanticoke — creating a policy-locked, grid-locked, Crown-land-locked corridor ready for immediate hyperscale AI compute deployment.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="value">545+</span>
+                            <span class="label">Acres</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="value">2+</span>
+                            <span class="label">GW Capacity</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="value">12</span>
+                            <span class="label">Month Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="core-threads">
+                <h3>Built to Hyperscale Spec</h3>
+                <ul class="thread-list">
+                    <li>Grid Locked</li>
+                    <li>Cooling Superhighway</li>
+                    <li>Energy Recycling</li>
+                    <li>Crown Land Locked</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Side: 3D Visual -->
+        <div class="hero-visual">
+            <div id="canvas-container">
+                <div class="floating-image-container">
+                    <video src="sutera-video-loop.mp4" autoplay loop muted playsinline class="floating-image"></video>
+                    <div class="watermark-cover"></div>
+                </div>
+            </div>
+
+            <!-- Annotations - Positioned on the right side -->
+            <div class="annotation annotation-1">
+                <div class="annotation-content">
+                    <div class="annotation-label">Crown Foundation</div>
+                    <div class="annotation-desc">Federal & Provincial Crown land — 545+ acres sovereign-controlled.</div>
+                </div>
+                <div class="annotation-line"></div>
+            </div>
+
+            <div class="annotation annotation-2">
+                <div class="annotation-content">
+                    <div class="annotation-label">500kV / 230kV Grid</div>
+                    <div class="annotation-desc">Direct-tap easements. Grid-locked interconnection ready.</div>
+                </div>
+                <div class="annotation-line"></div>
+            </div>
+
+            <div class="annotation annotation-3">
+                <div class="annotation-content">
+                    <div class="annotation-label">Cooling Superhighway</div>
+                    <div class="annotation-desc">St. Lawrence + Lake Erie cooling. PUE &lt; 1.1</div>
+                </div>
+                <div class="annotation-line"></div>
+            </div>
+
+            <div class="annotation annotation-4">
+                <div class="annotation-line"></div>
+                <div class="annotation-content">
+                    <div class="annotation-label">545+ Acres</div>
+                    <div class="annotation-desc">Allanburg & Nanticoke nodes. Canada's sovereign AI corridor.</div>
+                </div>
+            </div>
+
+            <!-- Bio Card -->
+            <div class="bio-card">
+                <h4>Not a what-if — This is built</h4>
+                <p>The first sovereign‑AI hyperscale corridor in Canada. 500 kV on both sides. 230 kV energised today. Crown‑locked land with direct‑tap easements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Section -->
+    <section>
+        <div class="section-header">
+            <span class="section-label">/25 Infrastructure Spec</span>
+            <h2 class="section-title">The Corridor Already Exists</h2>
+        </div>
+        <div class="data-grid">
+            <div class="data-card">
+                <h4>Total Acreage</h4>
+                <span class="value">545<span class="unit">ac</span></span>
+            </div>
+            <div class="data-card">
+                <h4>Grid Capacity</h4>
+                <span class="value">2+<span class="unit">GW</span></span>
+            </div>
+            <div class="data-card">
+                <h4>Allanburg Node</h4>
+                <span class="value">308<span class="unit">ac</span></span>
+            </div>
+            <div class="data-card">
+                <h4>Nanticoke Node</h4>
+                <span class="value">237<span class="unit">ac</span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <div class="quote-block">
+        <blockquote>
+            "This is a flagship infrastructure corridor, on par with the Trans-Canada Highway or the St. Lawrence Seaway system — except we are not just moving people or freight; we are anchoring Canada's sovereign-AI-compute and grid-resilience future."
+        </blockquote>
+        <div class="quote-attribution">
+            <div class="name">— Dan Loney</div>
+            <div class="title">Sovereign AI Corridor Inc.</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">© 2026 Sovereign AI Corridor Inc.</div>
+        <div class="footer-right">
+            <a href="#" class="footer-link">Grid Map</a>
+            <a href="#" class="footer-link">Nodes</a>
+            <a href="#" class="footer-link">Briefing</a>
+            <a href="#" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                timeZone: 'America/Toronto',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('local-time').textContent = `Toronto — ${timeString}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+    </script>
+</body>
+</html>
