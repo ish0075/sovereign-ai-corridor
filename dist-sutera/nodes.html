@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodes — Sovereign AI Corridor™</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #E8E6E1;
+            --bg-secondary: #D5D3CC;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent-red: #E63946;
+            --accent-cyan: #00D9FF;
+            --border: #1A1A1A;
+            --grid-line: rgba(26,26,26,0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .change-reality-btn {
+            padding: 12px 24px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .change-reality-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            color: white;
+        }
+
+        .main-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-bottom-color: white;
+        }
+
+        .time-display {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .menu-trigger {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .menu-trigger span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: white;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 140px 40px 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .page-description {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Nodes Overview */
+        .nodes-overview {
+            padding: 80px 40px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nodes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .divider {
+            background: var(--border);
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+        }
+
+        .node-card {
+            padding: 40px;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .node-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .node-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .node-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .node-marker {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+        }
+
+        .node-marker.allanburg {
+            background: var(--accent-cyan);
+        }
+
+        .node-marker.nanticoke {
+            background: var(--accent-red);
+        }
+
+        .node-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .node-stat h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .node-stat .value {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .node-features {
+            list-style: none;
+        }
+
+        .node-features li {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(26,26,26,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .node-features li::before {
+            content: '→';
+            color: var(--accent-cyan);
+        }
+
+        /* Node Detail Section */
+        .node-detail {
+            padding: 100px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .node-detail:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        .node-detail-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .node-detail-text h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .node-detail-text p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-list li {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .spec-list li span:first-child {
+            color: var(--text-secondary);
+        }
+
+        .spec-list li span:last-child {
+            font-weight: 600;
+        }
+
+        .node-detail-image {
+            aspect-ratio: 4/3;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .node-detail:nth-child(even) .node-detail-image {
+            background: var(--bg-primary);
+        }
+
+        .node-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nodes-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .node-detail-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid Overlay -->
+    <div class="grid-overlay"></div>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">SOVEREIGN AI CORRIDOR</a>
+        <nav class="main-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="white-paper-policy.html" class="nav-link">White Paper Policy</a>
+            <a href="grid-map.html" class="nav-link">Grid Map</a>
+            <a href="briefing.html" class="nav-link">Briefing</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+        <div class="header-right">
+            <span class="time-display" id="local-time">Toronto — --:--</span>
+            <div class="menu-trigger">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <p class="page-label">/02 Strategic Nodes</p>
+            <h1 class="page-title">Nodes</h1>
+            <p class="page-description">Two purpose-built locations forming Canada's sovereign AI infrastructure corridor. Each node is grid-locked, Crown-land-locked, and shovel-ready.</p>
+        </div>
+    </section>
+
+    <!-- Nodes Overview -->
+    <section class="nodes-overview">
+        <div class="nodes-grid">
+            <div class="node-card">
+                <div class="node-header">
+                    <h2 class="node-name">Allanburg</h2>
+                    <div class="node-marker allanburg"></div>
+                </div>
+                <div class="node-stats">
+                    <div class="node-stat">
+                        <h4>Acreage</h4>
+                        <div class="value">308</div>
+                    </div>
+                    <div class="node-stat">
+                        <h4>Grid Access</h4>
+                        <div class="value">500kV</div>
+                    </div>
+                </div>
+                <ul class="node-features">
+                    <li>Direct-tap transmission easement</li>
+                    <li>St. Lawrence River cooling access</li>
+                    <li>Provincial Crown land assembly</li>
+                    <li>12-month shovel-ready timeline</li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="node-card">
+                <div class="node-header">
+                    <h2 class="node-name">Nanticoke</h2>
+                    <div class="node-marker nanticoke"></div>
+                </div>
+                <div class="node-stats">
+                    <div class="node-stat">
+                        <h4>Acreage</h4>
+                        <div class="value">237</div>
+                    </div>
+                    <div class="node-stat">
+                        <h4>Grid Access</h4>
+                        <div class="value">230kV</div>
+                    </div>
+                </div>
+                <ul class="node-features">
+                    <li>Lake Erie cooling superhighway</li>
+                    <li>Federal Crown landlocked site</li>
+                    <li>Grid-locked interconnection</li>
+                    <li>PUE &lt; 1.1 capable</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Allanburg Detail -->
+    <section class="node-detail">
+        <div class="node-detail-content">
+            <div class="node-detail-text">
+                <h2>Allanburg Node</h2>
+                <p>Located at the intersection of major 500kV transmission infrastructure and the St. Lawrence River, Allanburg represents the eastern anchor of the Sovereign AI Corridor™. This 308-acre Provincial Crown land assembly features direct-tap transmission easements and immediate access to one of North America's most significant cooling water sources.</p>
+                <ul class="spec-list">
+                    <li><span>Land Status</span> <span>Provincial Crown</span></li>
+                    <li><span>Total Acreage</span> <span>308 acres</span></li>
+                    <li><span>Grid Voltage</span> <span>500kV direct-tap</span></li>
+                    <li><span>Cooling Source</span> <span>St. Lawrence River</span></li>
+                    <li><span>Distance to Water</span> <span>&lt; 2km</span></li>
+                    <li><span>Ready Timeline</span> <span>12 months</span></li>
+                </ul>
+            </div>
+            <div class="node-detail-image">
+                <img src="niagara-ai-power-belt.png" alt="Allanburg Node - Niagara AI Power Belt">
+            </div>
+        </div>
+    </section>
+
+    <!-- Nanticoke Detail -->
+    <section class="node-detail">
+        <div class="node-detail-content">
+            <div class="node-detail-image">
+                <img src="data-center.jpg" alt="Nanticoke Node - Data Center">
+            </div>
+            <div class="node-detail-text">
+                <h2>Nanticoke Node</h2>
+                <p>The Nanticoke node leverages 237 acres of Federal Crown land with direct access to Lake Erie's vast cooling capacity. This western anchor features 230kV grid interconnection and represents one of the most power-dense, cooling-rich sites in North America — capable of supporting PUE ratings below 1.1.</p>
+                <ul class="spec-list">
+                    <li><span>Land Status</span> <span>Federal Crown</span></li>
+                    <li><span>Total Acreage</span> <span>237 acres</span></li>
+                    <li><span>Grid Voltage</span> <span>230kV interconnection</span></li>
+                    <li><span>Cooling Source</span> <span>Lake Erie</span></li>
+                    <li><span>PUE Capability</span> <span>&lt; 1.1</span></li>
+                    <li><span>Water Depth</span> <span>30+ meters</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">© 2026 Sovereign AI Corridor™ Inc.</div>
+        <div class="footer-right">
+            <a href="grid-map.html" class="footer-link">Grid Map</a>
+            <a href="briefing.html" class="footer-link">Briefing</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Time update
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                timeZone: 'America/Toronto',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('local-time').textContent = `Toronto — ${timeString}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.node-card', {
+            scrollTrigger: {
+                trigger: '.nodes-overview',
+                start: 'top 70%'
+            },
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.node-detail-text', {
+            scrollTrigger: {
+                trigger: '.node-detail',
+                start: 'top 70%'
+            },
+            x: -40,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.node-detail-image', {
+            scrollTrigger: {
+                trigger: '.node-detail',
+                start: 'top 70%'
+            },
+            x: 40,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+    </script>
+</body>
+</html>

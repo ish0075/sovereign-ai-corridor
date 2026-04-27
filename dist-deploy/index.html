@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOVEREIGN AI CORRIDOR — Infrastructure by Design</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
@@ -19,7 +23,7 @@
             --accent-cyan: #00D9FF;
             --border: #1A1A1A;
             --grid-line: rgba(26,26,26,0.04);
-            --font-display: 'Syne', sans-serif;
+            --font-display: 'Satoshi', sans-serif;
             --font-body: 'Space Grotesk', sans-serif;
             --font-mono: 'IBM Plex Mono', monospace;
         }
@@ -309,11 +313,11 @@
         /* Hero video logo watermark */
         .hero-video-logo {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 220px;
-            height: 32px;
-            z-index: 5;
+            bottom: 6px;
+            right: 6px;
+            width: 180px;
+            height: 26px;
+            z-index: 25;
             pointer-events: none;
         }
 
@@ -323,7 +327,42 @@
             display: block;
         }
 
-        /* Audio Section - High Contrast Over Video */
+        /* Hero Typewriter overlay - top left of floating video */
+        .hero-typewriter {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            padding: 8px 14px;
+            border: 1px solid #000;
+            background: transparent;
+            font-family: 'Satoshi', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            font-variant: small-caps;
+            color: #000;
+            pointer-events: none;
+            line-height: 1.4;
+            text-align: left;
+            max-width: 420px;
+        }
+
+        .hero-typewriter .cursor {
+            display: inline-block;
+            width: 1px;
+            height: 1em;
+            background: #000;
+            margin-left: 2px;
+            animation: blink-cursor-hero 1s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink-cursor-hero {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .audio-section {
             position: relative;
             height: 100vh;
@@ -424,7 +463,7 @@
         }
 
         .audio-title {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Satoshi', sans-serif;
             font-size: clamp(48px, 6vw, 80px);
             font-weight: 700;
             line-height: 1;
@@ -794,11 +833,11 @@
         /* Video Logo Overlay - bottom right to cover watermark */
         .video-logo-overlay {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
-            width: 180px;
-            height: 32px;
-            z-index: 5;
+            bottom: 6px;
+            right: 6px;
+            width: 130px;
+            height: 20px;
+            z-index: 25;
             pointer-events: none;
         }
 
@@ -807,6 +846,42 @@
             height: 100%;
             display: block;
         }
+        /* Typewriter overlay - top left of video */
+        .video-typewriter {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            padding: 10px 18px;
+            border: 1px solid #000;
+            background: rgba(255,255,255,0.95);
+            font-family: 'Satoshi', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #000;
+            pointer-events: none;
+            line-height: 1.5;
+            max-width: 460px;
+        }
+
+        .video-typewriter .cursor {
+            display: inline-block;
+            width: 1px;
+            height: 1em;
+            background: #000;
+            margin-left: 2px;
+            animation: blink-cursor 1s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+
 
         .video-controls {
             position: absolute;
@@ -1334,8 +1409,7 @@
         <a href="index.html" class="logo">SOVEREIGN AI CORRIDOR</a>
         <nav class="main-nav">
             <a href="index.html" class="nav-link">Home</a>
-            <a href="grid-map.html" class="nav-link">Grid Map</a>
-            <a href="briefing.html" class="nav-link">Briefing</a>
+            <a href="white-paper-policy.html" class="nav-link">White Paper Policy</a>
             <a href="contact.html" class="nav-link">Contact</a>
         </nav>
         <div class="header-right">
@@ -1352,16 +1426,16 @@
         <div class="hero-content">
             <div>
                 <div class="hero-title">
-                    <h1>SOVEREIGN BY INFRASTRUCTURE.</h1>
-                    <span class="tag">500kV — Crown Land — Ready Now</span>
+                    <h1>SOVEREIGN AI INFRASTRUCTURE.</h1>
+                    <span class="tag">500kV — Industrial Zoned Land — Ready Now</span>
                 </div>
 
                 <div class="hero-intro">
-                    <p>Sovereign AI Corridor Inc. has assembled 545+ acres across two strategic nodes — Allanburg and Nanticoke — creating a policy-locked, grid-locked, Crown-land-locked corridor ready for immediate hyperscale AI compute deployment.</p>
+                    <p>Sovereign AI Corridor™ Inc. is assembling 500+ acres across two strategic nodes — Niagara and Haldimand — creating a policy-locked, grid-locked, Industrial-zoned-locked corridor ready for immediate hyperscale AI compute deployment.</p>
                     
                     <div class="hero-stats">
                         <div class="hero-stat">
-                            <span class="value">545+</span>
+                            <span class="value">500+</span>
                             <span class="label">Acres</span>
                         </div>
                         <div class="hero-stat">
@@ -1369,7 +1443,7 @@
                             <span class="label">GW Capacity</span>
                         </div>
                         <div class="hero-stat">
-                            <span class="value">12</span>
+                            <span class="value">18</span>
                             <span class="label">Month Ready</span>
                         </div>
                     </div>
@@ -1382,7 +1456,7 @@
                     <li>Grid Locked</li>
                     <li>Cooling Superhighway</li>
                     <li>Energy Recycling</li>
-                    <li>Crown Land Locked</li>
+                    <li>Industrial Zoned Land Locked</li>
                 </ul>
             </div>
         </div>
@@ -1390,19 +1464,22 @@
         <div class="hero-visual">
             <div class="floating-image-container">
                 <video src="sutera-video-loop.mp4" autoplay loop muted playsinline class="floating-image"></video>
-                <!-- Logo Watermark -->
+                <!-- Hero Typewriter Overlay -->
+                <div class="hero-typewriter" id="hero-typewriter"><span class="text"></span><span class="cursor"></span></div>
+
+                <!-- tiny pill logo -->
                 <div class="hero-video-logo">
-                    <svg viewBox="0 0 220 32" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Background pill - white -->
-                        <rect x="0" y="0" width="220" height="32" rx="16" fill="rgba(255,255,255,0.95)"/>
+                    <svg viewBox="0 0 180 26" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background pill - solid white -->
+                        <rect x="0" y="0" width="180" height="26" rx="13" fill="rgba(255,255,255,1)"/>
                         <!-- Border -->
-                        <rect x="0.5" y="0.5" width="219" height="31" rx="15.5" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+                        <rect x="0.5" y="0.5" width="179" height="25" rx="12.5" fill="none" stroke="#1A1A1A" stroke-width="1"/>
                         <!-- Text: SOVEREIGN AI CORRIDOR - black -->
-                        <text x="110" y="20" font-family="Space Grotesk, sans-serif" font-size="10" font-weight="700" 
-                              fill="#1A1A1A" letter-spacing="0.15em" text-anchor="middle">SOVEREIGN AI CORRIDOR</text>
+                        <text x="90" y="17" font-family="Satoshi, sans-serif" font-size="8" font-weight="700" 
+                              fill="#1A1A1A" letter-spacing="0.08em" text-anchor="middle">SOVEREIGN AI CORRIDOR</text>
                     </svg>
                 </div>
-            </div>
+                </div>
         </div>
     </section>
 
@@ -1425,7 +1502,7 @@
             </div>
             
             <h2 class="audio-title">Canada's<br>Shovel-Ready</h2>
-            <p class="audio-subtitle">Complete corridor briefing — 5 minutes</p>
+            <p class="audio-subtitle">Complete corridor briefing</p>
             
             <!-- Waveform -->
             <div class="waveform-container" id="waveform">
@@ -1473,7 +1550,7 @@
                 </div>
             </div>
             
-            <audio id="corridor-audio" src="audio/canada-sovereign-ai-corridor.mp3" preload="metadata"></audio>
+            <audio id="corridor-audio" src="audio/Niagara_s_18_Month_Sovereign_AI_Corridor.m4a" preload="metadata"></audio>
         </div>
     </section>
 
@@ -1487,14 +1564,14 @@
         <div class="chapters-container">
             <div class="chapter-card" data-time="0">
                 <div class="chapter-number">01 / Intro</div>
-                <h5>The Sovereign AI Corridor</h5>
+                <h5>The Sovereign AI Corridor™</h5>
                 <p>Canada's first purpose-built infrastructure</p>
                 <div class="chapter-time">0:00</div>
             </div>
             <div class="chapter-card" data-time="60">
                 <div class="chapter-number">02 / Land</div>
-                <h5>545+ Acres Crown Land</h5>
-                <p>Strategic nodes at Allanburg & Nanticoke</p>
+                <h5>500+ Acres Industrial Zoned Land</h5>
+                <p>Strategic nodes at Niagara & Haldimand</p>
                 <div class="chapter-time">1:00</div>
             </div>
             <div class="chapter-card" data-time="120">
@@ -1506,7 +1583,7 @@
             <div class="chapter-card" data-time="180">
                 <div class="chapter-number">04 / Cooling</div>
                 <h5>PUE &lt; 1.1</h5>
-                <p>St. Lawrence cooling superhighway</p>
+                <p>St. Lawrence Seaway cooling superhighway</p>
                 <div class="chapter-time">3:00</div>
             </div>
         </div>
@@ -1530,23 +1607,14 @@
             <!-- Main Video Player -->
             <div class="video-player-wrapper">
                 <video id="main-video" class="main-video" poster="video-player-poster.png" preload="metadata">
-                    <source src="The_Perfect_AI_Megaproject.mp4" type="video/mp4">
+                    <source src="THOROLD TO HALDIMAND CORRIDOR.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 
-                <!-- Video Logo Watermark -->
-                <div class="video-logo-overlay">
-                    <svg viewBox="0 0 180 32" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Background pill - white -->
-                        <rect x="0" y="0" width="180" height="32" rx="16" fill="rgba(255,255,255,0.95)"/>
-                        <!-- Border -->
-                        <rect x="0.5" y="0.5" width="179" height="31" rx="15.5" fill="none" stroke="#1A1A1A" stroke-width="1"/>
-                        <!-- Text: SOVEREIGN AI CORRIDOR - black -->
-                        <text x="90" y="20" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" 
-                              fill="#1A1A1A" letter-spacing="0.12em" text-anchor="middle">SOVEREIGN AI CORRIDOR</text>
-                    </svg>
-                </div>
                 
+
+
+
                 <!-- Video Controls Overlay -->
                 <div class="video-controls" id="video-controls">
                     <button class="video-play-btn" id="video-play-btn">
@@ -1579,8 +1647,8 @@
             <div class="film-overlay"></div>
             <div class="film-content">
                 <p class="film-label">01 / Foundation</p>
-                <h2 class="film-title">Crown Foundation</h2>
-                <p class="film-description">Federal & Provincial Crown land — 545+ acres sovereign-controlled.</p>
+                <h2 class="film-title">Industrial Zoned Foundation</h2>
+                <p class="film-description">Federal & Provincial Industrial zoned land — 500+ acres sovereign-controlled.</p>
             </div>
         </div>
 
@@ -1597,15 +1665,15 @@
             </div>
         </div>
 
-        <!-- Section 3: 545+ Crown Land -->
+        <!-- Section 3: 500+ Industrial Zoned Land -->
         <div class="film-section center-number">
             <div class="film-bg">
                 <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
             </div>
             <div class="film-overlay"></div>
             <div class="film-content">
-                <div class="film-big-number">545+</div>
-                <p class="film-big-label">Crown Land</p>
+                <div class="film-big-number">500+</div>
+                <p class="film-big-label">Industrial Zoned Land</p>
             </div>
         </div>
 
@@ -1618,7 +1686,7 @@
             <div class="film-content">
                 <p class="film-label">03 / Cooling</p>
                 <h2 class="film-title">Cooling Superhighway</h2>
-                <p class="film-description">St. Lawrence + Lake Erie cooling. PUE < 1.1</p>
+                <p class="film-description">St. Lawrence Seaway + Lake Erie cooling. PUE < 1.1</p>
             </div>
         </div>
 
@@ -1630,7 +1698,7 @@
             <div class="film-overlay"></div>
             <div class="film-content">
                 <p class="film-label">04 / Nodes</p>
-                <h2 class="film-title">Allanburg & Nanticoke</h2>
+                <h2 class="film-title">Niagara & Haldimand</h2>
                 <p class="film-description">308 acres + 237 acres. Canada's sovereign AI corridor.</p>
             </div>
         </div>
@@ -1648,18 +1716,18 @@
         <div class="data-grid">
             <div class="data-card">
                 <h4>Total Acreage</h4>
-                <div class="value">545<span class="unit">ac</span></div>
+                <div class="value">500+<span class="unit">ac</span></div>
             </div>
             <div class="data-card">
                 <h4>Grid Capacity</h4>
                 <div class="value">2+<span class="unit">GW</span></div>
             </div>
             <div class="data-card">
-                <h4>Allanburg Node</h4>
+                <h4>Niagara Node</h4>
                 <div class="value">308<span class="unit">ac</span></div>
             </div>
             <div class="data-card">
-                <h4>Nanticoke Node</h4>
+                <h4>Haldimand Node</h4>
                 <div class="value">237<span class="unit">ac</span></div>
             </div>
         </div>
@@ -1669,15 +1737,15 @@
     <section class="quote-section">
         <div class="quote-container">
             <div class="quote-image">
-                <img src="danloney.jpg" alt="Dan Loney - Sovereign AI Corridor">
+                <img src="danloney.jpg" alt="Dan Loney - Sovereign AI Corridor™">
             </div>
             <div class="quote-content">
-                <blockquote>"This is a flagship infrastructure corridor, on par with the Trans-Canada Highway or the St. Lawrence Seaway system — except we are not just moving people or freight; we are anchoring Canada's sovereign-AI-compute and grid-resilience future."</blockquote>
+                <blockquote>"This is a flagship infrastructure corridor 'The Alley', is on par with the Trans-Canada Highway or the St. Lawrence Seaway system — except we are not just moving people or freight; we are anchoring Canada's sovereign-AI-compute and grid- resilience future."</blockquote>
                 <div class="quote-attribution">
                     <span class="quote-divider"></span>
                     <div>
                         <div class="name">Dan Loney</div>
-                        <div class="title">Sovereign AI Corridor Inc.</div>
+                        <div class="title">Sovereign AI Corridor™ Inc.</div>
                     </div>
                 </div>
             </div>
@@ -1686,10 +1754,7 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-left">© 2026 Sovereign AI Corridor Inc.</div>
         <div class="footer-right">
-            <a href="grid-map.html" class="footer-link">Grid Map</a>
-            <a href="briefing.html" class="footer-link">Briefing</a>
             <a href="contact.html" class="footer-link">Contact</a>
         </div>
     </footer>
@@ -1894,6 +1959,32 @@
             duration: 1,
             ease: 'power3.out'
         });
+
+
+
+
+
+
+
+
+
+        // Hero typewriter effect for floating land video
+        const heroTypewriterText = "True Sovereign Ai\n• Locally powered • thermally optimized and legally protected on home soil";
+        const heroTypewriterEl = document.querySelector('#hero-typewriter .text');
+        let heroTypewriterIndex = 0;
+        function runHeroTypewriter() {
+            if (heroTypewriterIndex < heroTypewriterText.length) {
+                const char = heroTypewriterText.charAt(heroTypewriterIndex);
+                if (char === "\n") {
+                    heroTypewriterEl.innerHTML = heroTypewriterEl.innerHTML + "<br>";
+                } else {
+                    heroTypewriterEl.innerHTML = heroTypewriterEl.innerHTML + char;
+                }
+                heroTypewriterIndex++;
+                setTimeout(runHeroTypewriter, 140);
+            }
+        }
+        setTimeout(runHeroTypewriter, 500);
     </script>
 </body>
 </html>
