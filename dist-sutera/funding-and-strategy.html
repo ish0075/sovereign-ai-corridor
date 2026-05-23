@@ -6,7 +6,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>White Paper Policy — Sovereign AI Corridor™</title>
+    <title>FUNDING <title>FUNDING & STRATEGY — SOVEREIGN AI CORRIDOR</title> STRATEGY — SOVEREIGN AI CORRIDOR</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -81,7 +81,6 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: white;
-            text-decoration: none;
         }
 
         .header-center {
@@ -138,10 +137,6 @@
         }
 
         .nav-link:hover {
-            border-bottom-color: white;
-        }
-
-        .nav-link.active {
             border-bottom-color: white;
         }
 
@@ -341,7 +336,7 @@
             display: block;
         }
 
-        /* Hero Typewriter overlay */
+        /* Hero Typewriter overlay - top left of floating video */
         .hero-typewriter {
             position: absolute;
             top: 12px;
@@ -377,193 +372,384 @@
             50% { opacity: 0; }
         }
 
-        /* Text Content Sections */
-        .text-section {
+        .audio-section {
             position: relative;
-            padding: 120px 40px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             border-top: 1px solid var(--border);
-            background: var(--bg-primary);
         }
 
-        .text-section-alt {
-            background: var(--bg-secondary);
+        .audio-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
-        .text-container {
-            max-width: 1200px;
+        .audio-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1);
+        }
+
+        .audio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(232, 230, 225, 0.15);
+            z-index: 2;
+        }
+
+        .audio-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 80px 60px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: start;
+            grid-template-rows: auto 1fr auto;
+            gap: 40px;
+            height: 100%;
         }
 
-        .text-container-single {
+        .audio-container-center {
+            position: relative;
+            z-index: 10;
+            width: 100%;
             max-width: 800px;
             margin: 0 auto;
+            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
         }
 
-        .text-label {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
+        /* Left Side - Title and Controls */
+        .audio-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
         }
 
-        .text-title {
-            font-family: var(--font-display);
-            font-size: clamp(36px, 5vw, 64px);
-            font-weight: 700;
-            line-height: 1.05;
+        .podcast-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #fff;
+            background: #000;
+            padding: 10px 18px;
             margin-bottom: 32px;
         }
 
-        .text-body {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-secondary);
+        .podcast-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .text-body p {
-            margin-bottom: 20px;
+        .podcast-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
         }
 
-        .text-body strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .text-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            margin-top: 40px;
-        }
-
-        .text-stat-item {
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-        }
-
-        .text-stat-item .num {
-            font-family: var(--font-display);
-            font-size: 36px;
+        .audio-title {
+            font-family: 'Satoshi', sans-serif;
+            font-size: clamp(48px, 6vw, 80px);
             font-weight: 700;
-            display: block;
-            margin-bottom: 4px;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            mix-blend-mode: difference;
         }
 
-        .text-stat-item .lbl {
+        .audio-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 48px;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Waveform */
+        .waveform-container {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 50px;
+            margin-bottom: 40px;
+            opacity: 0.4;
+        }
+
+        .waveform-container.playing {
+            opacity: 0.8;
+        }
+
+        .waveform-bar {
+            width: 4px;
+            background: #fff;
+            border-radius: 2px;
+            animation: waveform 1s ease-in-out infinite;
+            box-shadow: 0 0 4px rgba(0,0,0,0.3);
+        }
+
+        .waveform-bar:nth-child(odd) { animation-duration: 0.8s; }
+        .waveform-bar:nth-child(3n) { animation-duration: 1.2s; }
+        .waveform-bar:nth-child(5n) { animation-duration: 0.6s; }
+
+        @keyframes waveform {
+            0%, 100% { height: 20%; }
+            50% { height: 100%; }
+        }
+
+        .waveform-container:not(.playing) .waveform-bar {
+            animation: none;
+            height: 20%;
+        }
+
+        /* Play Button - Black background, white letters */
+        .play-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 40px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #000;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+        }
+
+        .play-button:hover {
+            background: transparent;
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .play-button.playing {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 14px solid currentColor;
+            border-top: 9px solid transparent;
+            border-bottom: 9px solid transparent;
+        }
+
+        .play-button.playing .play-icon {
+            width: 14px;
+            height: 18px;
+            border: none;
+            background: transparent;
+            position: relative;
+        }
+
+        .play-button.playing .play-icon::before,
+        .play-button.playing .play-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: currentColor;
+        }
+
+        .play-button.playing .play-icon::before { left: 0; }
+        .play-button.playing .play-icon::after { right: 0; }
+
+        /* Progress */
+        .audio-progress-area {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .audio-progress {
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .audio-progress-bar {
+            height: 100%;
+            background: #fff;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 4px rgba(255,255,255,0.5);
+        }
+
+        .audio-time {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
             font-family: 'IBM Plex Mono', monospace;
             font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.8);
         }
 
-        /* Alignment Table */
-        .alignment-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 32px;
-            font-size: 14px;
+        /* Right Side - Chapter Cards Over Video */
+        .audio-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
         }
 
-        .alignment-table th {
+        .chapter-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 24px 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .chapter-card:hover,
+        .chapter-card.active {
+            background: #000;
+            border-color: #000;
+            transform: translateX(8px);
+        }
+
+        .chapter-card:hover .chapter-number,
+        .chapter-card.active .chapter-number {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .chapter-card:hover h5,
+        .chapter-card.active h5 {
+            color: #fff;
+        }
+
+        .chapter-card:hover p,
+        .chapter-card.active p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .chapter-card:hover .chapter-time,
+        .chapter-card.active .chapter-time {
+            color: rgba(255,255,255,0.5);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .chapter-number {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 10px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            text-align: left;
-            padding: 16px;
-            border-bottom: 2px solid var(--border);
-            color: var(--text-secondary);
-            background: transparent;
+            color: rgba(0,0,0,0.5);
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
         }
 
-        .alignment-table td {
-            padding: 16px;
-            border-bottom: 1px solid rgba(26,26,26,0.1);
-            vertical-align: top;
-            line-height: 1.6;
-        }
-
-        .alignment-table td:first-child {
+        .chapter-card h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
             font-weight: 600;
-            width: 35%;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #000;
+            transition: color 0.3s ease;
         }
 
-        .alignment-table tr:hover td {
-            background: rgba(26,26,26,0.02);
+        .chapter-card p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            color: rgba(0,0,0,0.6);
+            transition: color 0.3s ease;
         }
 
-        /* Roadmap Timeline */
-        .roadmap {
-            margin-top: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .roadmap-item {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 24px;
-            align-items: start;
-            padding-bottom: 24px;
-            border-bottom: 1px solid rgba(26,26,26,0.1);
-        }
-
-        .roadmap-phase {
+        .chapter-time {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            padding-top: 4px;
+            color: rgba(0,0,0,0.4);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
-        .roadmap-desc {
-            font-size: 15px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        .roadmap-desc strong {
-            color: var(--text-primary);
-        }
-
-        /* Policy Directives */
-        .directive-list {
-            list-style: none;
-            margin-top: 32px;
+        /* Chapters Section - Separate Page */
+        .chapters-section {
+            position: relative;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
         }
 
-        .directive-list li {
-            padding: 20px 24px;
-            border: 1px solid var(--border);
-            background: var(--bg-primary);
-            font-size: 15px;
-            line-height: 1.6;
-            color: var(--text-secondary);
+        .chapters-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
-        .directive-list li strong {
-            color: var(--text-primary);
-            font-weight: 600;
+        .chapters-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.1);
         }
 
-        /* Video Section */
+        .chapters-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(232, 230, 225, 0.15);
+            z-index: 2;
+        }
+
+        .chapters-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 60px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        /* Video Player Section - Clean White */
         .video-section {
             position: relative;
             min-height: 100vh;
@@ -635,6 +821,7 @@
             letter-spacing: 0.05em;
         }
 
+        /* Video Player - Black */
         .video-player-wrapper {
             position: relative;
             width: 100%;
@@ -652,6 +839,7 @@
             background: #000;
         }
 
+        /* Video Logo Overlay - bottom right to cover watermark */
         .video-logo-overlay {
             position: absolute;
             bottom: 6px;
@@ -667,7 +855,7 @@
             height: 100%;
             display: block;
         }
-
+        /* Typewriter overlay - top left of video */
         .video-typewriter {
             position: absolute;
             top: 12px;
@@ -701,6 +889,8 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
+
+
 
         .video-controls {
             position: absolute;
@@ -746,6 +936,7 @@
             margin-left: 4px;
         }
 
+        /* Video Progress */
         .video-progress-area {
             width: 100%;
             max-width: 900px;
@@ -775,18 +966,21 @@
             color: var(--text-secondary);
         }
 
-        /* Audio Section */
-        .audio-section {
+        /* Cinematic Film Sections */
+        .cinematic-section {
+            position: relative;
+        }
+
+        .film-section {
             position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border-top: 1px solid var(--border);
         }
 
-        .audio-bg {
+        .film-bg {
             position: absolute;
             top: 0;
             left: 0;
@@ -795,204 +989,234 @@
             z-index: 1;
         }
 
-        .audio-bg video {
+        .film-bg video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%) contrast(1.1);
         }
 
-        .audio-overlay {
+        .film-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(232, 230, 225, 0.15);
+            background: rgba(232, 230, 225, 0.85);
             z-index: 2;
         }
 
-        .audio-container-center {
+        .film-content {
             position: relative;
             z-index: 10;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
+            max-width: 800px;
+            padding: 0 40px;
         }
 
-        .podcast-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+        .film-label {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #fff;
-            background: #000;
-            padding: 10px 18px;
-            margin-bottom: 32px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            opacity: 0.7;
         }
 
-        .podcast-icon {
-            width: 16px;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .podcast-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: currentColor;
-        }
-
-        .audio-title {
-            font-family: 'Satoshi', sans-serif;
-            font-size: clamp(48px, 6vw, 80px);
+        .film-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 72px);
             font-weight: 700;
-            line-height: 1;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-            mix-blend-mode: difference;
+            line-height: 1.1;
+            margin-bottom: 24px;
         }
 
-        .audio-subtitle {
+        .film-description {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 14px;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 48px;
-            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+            line-height: 1.8;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .waveform-container {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            height: 50px;
-            margin-bottom: 40px;
-            opacity: 0.4;
+        /* Center Big Number Section */
+        .film-section.center-number .film-overlay {
+            background: rgba(232, 230, 225, 0.7);
         }
 
-        .waveform-container.playing {
-            opacity: 0.8;
+        .film-big-number {
+            font-family: var(--font-display);
+            font-size: clamp(120px, 20vw, 280px);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 16px;
         }
 
-        .waveform-bar {
-            width: 4px;
-            background: #fff;
-            border-radius: 2px;
-            animation: waveform 1s ease-in-out infinite;
-            box-shadow: 0 0 4px rgba(0,0,0,0.3);
-        }
-
-        .waveform-bar:nth-child(odd) { animation-duration: 0.8s; }
-        .waveform-bar:nth-child(3n) { animation-duration: 1.2s; }
-        .waveform-bar:nth-child(5n) { animation-duration: 0.6s; }
-
-        @keyframes waveform {
-            0%, 100% { height: 20%; }
-            50% { height: 100%; }
-        }
-
-        .waveform-container:not(.playing) .waveform-bar {
-            animation: none;
-            height: 20%;
-        }
-
-        .play-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px 40px;
-            background: #000;
-            color: #fff;
-            border: 1px solid #000;
+        .film-big-label {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 13px;
+            font-size: 16px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* Data Section */
+        .data-section {
+            position: relative;
+            padding: 120px 40px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-header .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 32px;
+            color: var(--text-secondary);
         }
 
-        .play-button:hover {
-            background: transparent;
-            color: #fff;
-            border-color: #fff;
+        .section-header .section-title {
+            font-family: var(--font-display);
+            font-size: 42px;
+            font-weight: 700;
+            margin-top: 8px;
         }
 
-        .play-button.playing {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .play-icon {
-            width: 0;
-            height: 0;
-            border-left: 14px solid currentColor;
-            border-top: 9px solid transparent;
-            border-bottom: 9px solid transparent;
+        .data-card {
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            padding: 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .play-button.playing .play-icon {
-            width: 14px;
-            height: 18px;
-            border: none;
-            background: transparent;
+        .data-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .data-card h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .data-card .value {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .data-card .value .unit {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-left: 4px;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 120px 40px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-primary);
+        }
+
+        .quote-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .quote-image {
             position: relative;
         }
 
-        .play-button.playing .play-icon::before,
-        .play-button.playing .play-icon::after {
+        .quote-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%) contrast(1.1);
+            border: 1px solid var(--border);
+        }
+
+        .quote-image::after {
             content: '';
             position: absolute;
             top: 0;
-            width: 5px;
-            height: 100%;
-            background: currentColor;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,217,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+            border: 1px solid var(--border);
         }
 
-        .play-button.playing .play-icon::before { left: 0; }
-        .play-button.playing .play-icon::after { right: 0; }
-
-        .audio-progress-area {
-            width: 100%;
-            max-width: 400px;
+        .quote-content {
+            text-align: left;
         }
 
-        .audio-progress {
-            height: 2px;
-            background: rgba(255,255,255,0.3);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
+        .quote-content blockquote {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 40px;
         }
 
-        .audio-progress-bar {
-            height: 100%;
-            background: #fff;
-            width: 0%;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 4px rgba(255,255,255,0.5);
-        }
-
-        .audio-time {
+        .quote-attribution {
             display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quote-attribution .name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .quote-attribution .title {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 11px;
-            color: rgba(255,255,255,0.8);
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .quote-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--border);
         }
 
         /* Footer */
@@ -1001,7 +1225,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid var(--border);
         }
 
         .footer-left {
@@ -1038,19 +1261,50 @@
             .hero-content {
                 padding-top: 100px;
             }
+            
+            .data-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
 
-            .text-container {
-                grid-template-columns: 1fr;
+            .quote-container {
+                grid-template-columns: 200px 1fr;
                 gap: 40px;
             }
 
-            .audio-container-center {
+            .quote-content blockquote {
+                font-size: 22px;
+            }
+
+            .audio-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
                 padding: 60px 40px;
+                gap: 60px;
+            }
+
+            .audio-left {
+                align-items: center;
+                text-align: center;
+            }
+
+            .audio-right {
+                max-width: 500px;
+                margin: 0 auto;
+                width: 100%;
             }
 
             .audio-title {
                 font-size: 48px;
                 text-align: center;
+            }
+
+            .audio-subtitle {
+                text-align: center;
+            }
+
+            .chapters-container {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 60px 40px;
             }
 
             .video-section {
@@ -1063,8 +1317,26 @@
         }
 
         @media (max-width: 768px) {
-            .text-stats {
+            .data-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .quote-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .quote-image {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
+            .quote-content {
+                text-align: center;
+            }
+
+            .quote-attribution {
+                justify-content: center;
             }
 
             .waveform-container {
@@ -1080,7 +1352,21 @@
                 font-size: 12px;
             }
 
-            .audio-container-center {
+            .audio-container {
+                padding: 40px 24px;
+            }
+
+            .chapter-card {
+                padding: 20px;
+            }
+
+            .chapter-card h5 {
+                font-size: 16px;
+            }
+
+            .chapters-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
                 padding: 40px 24px;
             }
 
@@ -1132,8 +1418,8 @@
         <a href="index.html" class="logo">SOVEREIGN AI CORRIDOR™</a>
         <nav class="main-nav">
             <a href="index.html" class="nav-link">Home</a>
-            <a href="white-paper-policy.html" class="nav-link active">White Paper Policy</a>
-            <a href="funding-and-strategy.html" class="nav-link">FUNDING & STRATEGY</a>
+            <a href="white-paper-policy.html" class="nav-link">White Paper Policy</a>
+            <a href="https://foundation.sovereignaicorridor.ca" class="nav-link active">FUNDING & STRATEGY</a>
             <a href="contact.html" class="nav-link">Contact</a>
         </nav>
         <div class="header-right">
@@ -1151,12 +1437,12 @@
         <div class="hero-content">
             <div>
                 <div class="hero-title">
-                    <h1>SECURING CANADA'S NATIONAL AI INFRASTRUCTURE BACKBONE</h1>
-                    <span class="tag">White Paper Policy</span>
+                    <h1>SOVEREIGN AI INFRASTRUCTURE.</h1>
+                    <span class="tag">500kV — Industrial Zoned Land — Ready Now</span>
                 </div>
 
                 <div class="hero-intro">
-                    <p>Sovereign AI Corridor™ Inc. is assembling 500+ acres across the Niagara–Haldimand corridor, creating a policy-locked, grid-locked, industrial-zoned corridor ready for immediate hyperscale AI compute deployment.</p>
+                    <p>Sovereign AI Corridor™ Inc. is a Canadian‑controlled, grid‑locked, industrial‑zoned AI‑infrastructure‑corridor anchored in Niagara and Haldimand, purpose‑built for immediate‑hyperscale‑AI‑compute deployment and aligned with ISED's Canadian Sovereign AI Compute Strategy and Ontario's AI‑and‑digital‑economy‑agenda.</p>
                     
                     <div class="hero-stats">
                         <div class="hero-stat">
@@ -1172,6 +1458,7 @@
                             <span class="label">Month Ready</span>
                         </div>
                     </div>
+                    <p style="margin-top: 24px; font-size: 14px; line-height: 1.6; color: var(--text-secondary); max-width: 600px;">Governed by Canadian‑investors and infrastructure‑partners, the corridor is financially‑structured to combine private‑equity, institutional‑debt, and public‑sector‑and‑hyperscale‑revenue‑commitments, while being grid‑locked to Ontario's Hydro‑One‑linked, IESO‑high‑capacity‑corridor in Niagara‑and‑Haldimand.</p>
                 </div>
             </div>
 
@@ -1195,8 +1482,11 @@
                 <!-- tiny pill logo -->
                 <div class="hero-video-logo">
                     <svg viewBox="0 0 180 26" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background pill - solid white -->
                         <rect x="0" y="0" width="180" height="26" rx="13" fill="rgba(255,255,255,1)"/>
+                        <!-- Border -->
                         <rect x="0.5" y="0.5" width="179" height="25" rx="12.5" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+                        <!-- Text: SOVEREIGN AI CORRIDOR - black -->
                         <text x="90" y="17" font-family="Satoshi, sans-serif" font-size="8" font-weight="700" 
                               fill="#1A1A1A" letter-spacing="0.08em" text-anchor="middle">SOVEREIGN AI CORRIDOR</text>
                     </svg>
@@ -1205,162 +1495,7 @@
         </div>
     </section>
 
-    <!-- Text Section 1: The Strategic Imperative + Policy-Natural Solution -->
-    <section class="text-section">
-        <div class="text-container">
-            <div>
-                <div class="text-label">01 / Strategic Imperative</div>
-                <h2 class="text-title">Bridging Canada's<br>AI Infrastructure Gap</h2>
-            </div>
-            <div class="text-body">
-                <p>Canada stands at a definitive crossroads. While the federal government has articulated a bold vision through the Innovation, Science and Economic Development Canada (ISED) Sovereign AI Compute Strategy and the <strong>$2 billion AI Compute Challenge</strong>, these ambitions currently lack a physical "engine."</p>
-                <p>The <strong>"Sovereign AI Infrastructure Gap"</strong> is the primary friction point between strategy and sovereignty. ISED has called for integrated AI data-centre solutions, yet the status quo offers only disjointed, foreign-dependent proposals that are too slow to deploy and impossible to secure under Canadian jurisdiction.</p>
-                <p>The deficiencies of the current landscape threaten Canada's competitive standing through four systemic failures:</p>
-                <p><strong>Permitting Drag:</strong> Traditional infrastructure is strangled by years of disjointed municipal zoning, environmental reviews, and land-use approvals across a hundred separate, uncoordinated sites.</p>
-                <p><strong>Grid-Lock:</strong> New compute tenants currently face indefinite, "Hydro-One-style" interconnection queues for transmission and substation capacity, stalling deployment indefinitely.</p>
-                <p><strong>Sovereignty Erosion:</strong> Reliance on U.S.-centric hyperscalers creates a fundamental dependency, leaving Canadian data residency and strategic autonomy at the mercy of foreign corporate interests.</p>
-                <p><strong>Talent and Supply-Chain Flight:</strong> Without world-class domestic compute, our "Canadarm-class" innovators are forced to look abroad, exporting Canadian intellectual capital and high-value supply-chain jobs to foreign ecosystems.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Text Section 1b: Policy-Natural Solution -->
-    <section class="text-section text-section-alt">
-        <div class="text-container">
-            <div class="text-body">
-                <p>The Niagara–Haldimand corridor is not a real-estate project; it is a <strong>national AI-industrial corridor</strong> of the same strategic magnitude as the St. Lawrence Seaway or the Trans-Canada Highway. It is the digital equivalent of the Canadarm program — a symbol of Canadian technological pride and strategic independence.</p>
-                <p>The Corridor model systematically "locks in" four essential advantages:</p>
-                <p><strong>Regulatory Policy-Lock:</strong> By consolidating zoning and land-use approvals into a single corridor, we bypass the municipal "permitting drag" that currently delays national infrastructure projects by years.</p>
-                <p><strong>Energy Grid-Lock:</strong> The corridor features a pre-engineered grid spine where transmission and substation capacity are secured in advance. This ensures AI-compute tenants can "plug-and-play," bypassing the catastrophic delays of standard interconnection queues.</p>
-                <p><strong>Strategic Sovereignty:</strong> Sovereign-compute requirements — including data residency and Canadian control — are codified at the infrastructure layer. This ensures all tenants, foreign or domestic, comply with Canadian standards as a condition of entry.</p>
-                <p><strong>Talent Retention:</strong> By anchoring high-tech operations to Canadian-controlled entities, the corridor ensures that the economic benefits of the AI build-out remain domestic, stopping the leakage of talent to foreign hyperscalers.</p>
-            </div>
-            <div>
-                <div class="text-label">02 / Policy-Natural Solution</div>
-                <h2 class="text-title">A National<br>AI-Industrial Corridor</h2>
-                <div class="text-stats">
-                    <div class="text-stat-item">
-                        <span class="num">Policy-Lock</span>
-                        <span class="lbl">Zoning Complete</span>
-                    </div>
-                    <div class="text-stat-item">
-                        <span class="num">Grid-Lock</span>
-                        <span class="lbl">Plug-and-Play</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="video-section">
-        <div class="video-container">
-            <div class="video-badge">
-                <span class="video-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
-                    </svg>
-                </span>
-                <span>Blueprint Documentary</span>
-            </div>
-            
-            <h2 class="video-title">The THOROLD-<br>Nanticoke Blueprint</h2>
-            <p class="video-subtitle">Sovereign AI Infrastructure — Documentary Feature</p>
-            
-            <div class="video-player-wrapper">
-                <video id="main-video" class="main-video" poster="video-player-poster.png" preload="metadata">
-                    <source src="Sovereign_AI_Infrastructure__The_THOROLD-Nanticoke_Blueprint.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                
-                <!-- Video Controls Overlay -->
-                <div class="video-controls" id="video-controls">
-                    <button class="video-play-btn" id="video-play-btn">
-                        <span class="video-play-icon"></span>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="video-progress-area">
-                <div class="video-progress" id="video-progress-container">
-                    <div class="video-progress-bar" id="video-progress-bar"></div>
-                </div>
-                <div class="video-time">
-                    <span id="video-current-time">0:00</span>
-                    <span id="video-duration">--:--</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Text Section 2: Federal Alignment + True Sovereignty -->
-    <section class="text-section">
-        <div class="text-container">
-            <div>
-                <div class="text-label">03 / Federal Alignment</div>
-                <h2 class="text-title">Integrating with<br>National AI Strategy</h2>
-            </div>
-            <div class="text-body">
-                <p>To execute a successful national "assault strategy," the Sovereign AI Corridor™ must be seamlessly integrated with existing federal programs. This alignment ensures the corridor acts as the physical manifestation of the ISED AI Compute Strategy, providing a clear path from policy to implementation.</p>
-                <table class="alignment-table">
-                    <thead>
-                        <tr>
-                            <th>Federal Initiative / Program</th>
-                            <th>How Sovereign AI Corridor™ Supports It</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Canadian Sovereign AI Compute Strategy</td>
-                            <td>Provides the essential physical "engine" and shovel-ready corridor for the AI Compute Challenge.</td>
-                        </tr>
-                        <tr>
-                            <td>AI Sovereign Compute Infrastructure Program (SCIP)</td>
-                            <td>Serves as the preferred physical home for large-scale, sovereign public AI compute clusters.</td>
-                        </tr>
-                        <tr>
-                            <td>Pan-Canadian AI Compute Environment (PAICE)</td>
-                            <td>Acts as the primary commercial counterpart to PAICE, housing public-compute clusters and commercial tenants side-by-side.</td>
-                        </tr>
-                        <tr>
-                            <td>Regional Development Strategy</td>
-                            <td>Establishes Niagara–Haldimand as a flagship national AI-industrial corridor, driving regional productivity and high-value job creation.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="margin-top: 24px;">The corridor creates a symbiotic environment where public-compute clusters under SCIP reside alongside commercial innovators. This dual-use model ensures the infrastructure is both a public asset and a commercial powerhouse.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="text-section text-section-alt">
-        <div class="text-container">
-            <div class="text-body">
-                <p>Canada faces a grave risk of adopting infrastructure that is <strong>"sovereign-in-name-only."</strong> As highlighted by critiques from CAISIC and Deloitte, a strategy that relies on hosting critical AI compute within foreign-owned and foreign-controlled facilities is sovereign in theory but subservient in practice.</p>
-                <p>The Sovereign AI Corridor™ enforces a strict suite of <strong>"Sovereign Protections"</strong> at the foundation:</p>
-                <p><strong>Mandatory Data Residency:</strong> Hard-coding the requirement that all data processed within the corridor remains on Canadian soil under Canadian law.</p>
-                <p><strong>Canadian-Owned Stakes:</strong> Requiring significant domestic ownership in the entities controlling the physical infrastructure and land.</p>
-                <p><strong>Canadian-Controlled Operations:</strong> Ensuring that the day-to-day management, security protocols, and operational oversight are handled by Canadian entities.</p>
-                <p>By anchoring construction and operations to Canadian-controlled firms, the corridor prevents supply-chain leakage and ensures the economic "multiplier effect" of the AI build-out stays in Canada.</p>
-            </div>
-            <div>
-                <div class="text-label">04 / True Sovereignty</div>
-                <h2 class="text-title">Beyond<br>"Sovereign-in-Name-Only"</h2>
-                <div class="text-stats">
-                    <div class="text-stat-item">
-                        <span class="num">Data</span>
-                        <span class="lbl">Residency Locked</span>
-                    </div>
-                    <div class="text-stat-item">
-                        <span class="num">Control</span>
-                        <span class="lbl">Canadian-Owned</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Audio Section -->
+    <!-- Audio Section - Main Player -->
     <section class="audio-section">
         <div class="audio-bg">
             <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
@@ -1375,12 +1510,13 @@
                         <circle cx="12" cy="12" r="2"/>
                     </svg>
                 </span>
-                <span>Audio Briefing</span>
+                <span>Audio Podcast</span>
             </div>
             
-            <h2 class="audio-title">Canada's Industrial<br>Blueprint</h2>
-            <p class="audio-subtitle">Sovereign AI infrastructure policy briefing</p>
+            <h2 class="audio-title">Canada's<br>Shovel-Ready</h2>
+            <p class="audio-subtitle">Complete corridor briefing</p>
             
+            <!-- Waveform -->
             <div class="waveform-container" id="waveform">
                 <div class="waveform-bar" style="height: 30%"></div>
                 <div class="waveform-bar" style="height: 60%"></div>
@@ -1409,11 +1545,13 @@
                 <div class="waveform-bar" style="height: 60%"></div>
             </div>
             
+            <!-- Play Button -->
             <button class="play-button" id="audio-play-btn">
                 <span class="play-icon"></span>
-                <span class="play-text">Play Briefing</span>
+                <span class="play-text">Play Podcast</span>
             </button>
             
+            <!-- Progress -->
             <div class="audio-progress-area">
                 <div class="audio-progress" id="audio-progress-container">
                     <div class="audio-progress-bar" id="audio-progress"></div>
@@ -1424,62 +1562,211 @@
                 </div>
             </div>
             
-            <audio id="corridor-audio" src="audio/Canada_s_industrial_blueprint_for_sovereign_AI.m4a" preload="metadata"></audio>
+            <audio id="corridor-audio" src="audio/Niagara_s_18_Month_Sovereign_AI_Corridor.m4a" preload="metadata"></audio>
         </div>
     </section>
 
-    <!-- Text Section 3: Implementation Roadmap + Policy Recommendations -->
-    <section class="text-section">
-        <div class="text-container">
-            <div>
-                <div class="text-label">05 / Implementation Roadmap</div>
-                <h2 class="text-title">The 18-Month<br>Fast-Track</h2>
+    <!-- Audio Chapters Section -->
+    <section class="chapters-section">
+        <div class="chapters-bg">
+            <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="chapters-overlay"></div>
+        
+        <div class="chapters-container">
+            <div class="chapter-card" data-time="0">
+                <div class="chapter-number">01 / Intro</div>
+                <h5>The Sovereign AI Corridor™</h5>
+                <p>Canada's first purpose-built infrastructure</p>
+                <div class="chapter-time">0:00</div>
             </div>
-            <div class="text-body">
-                <p>The Prime Minister's Office requires concrete, "shovel-ready" results that can be demonstrated to the Cabinet within the current policy cycle. The Sovereign AI Corridor™ is designed to meet this demand through an accelerated <strong>18-month implementation window</strong>.</p>
-                <div class="roadmap">
-                    <div class="roadmap-item">
-                        <div class="roadmap-phase">Months 0–3</div>
-                        <div class="roadmap-desc"><strong>Policy-Locking:</strong> Formation of a tri-ministry task force to finalize zoning, environmental approvals, and a robust Indigenous consultation framework, alongside the tax-incentive structure.</div>
-                    </div>
-                    <div class="roadmap-item">
-                        <div class="roadmap-phase">Months 4–9</div>
-                        <div class="roadmap-desc"><strong>Grid & Substation Execution:</strong> Pre-approval and commencement of grid-upgrade work, ensuring the corridor is "power-ready" before compute hardware arrives.</div>
-                    </div>
-                    <div class="roadmap-item">
-                        <div class="roadmap-phase">Months 10–18</div>
-                        <div class="roadmap-desc"><strong>Operational Launch:</strong> Opening the first tranches for public-use AI clusters (SCIP) and high-priority commercial tenants.</div>
+            <div class="chapter-card" data-time="60">
+                <div class="chapter-number">02 / Land</div>
+                <h5>500+ Acres Industrial Zoned Land</h5>
+                <p>Strategic nodes at Niagara & Haldimand</p>
+                <div class="chapter-time">1:00</div>
+            </div>
+            <div class="chapter-card" data-time="120">
+                <div class="chapter-number">03 / Power</div>
+                <h5>2+ GW Grid Capacity</h5>
+                <p>500kV/230kV grid-locked interconnection</p>
+                <div class="chapter-time">2:00</div>
+            </div>
+            <div class="chapter-card" data-time="180">
+                <div class="chapter-number">04 / Cooling</div>
+                <h5>PUE &lt; 1.1</h5>
+                <p>St. Lawrence Seaway cooling superhighway</p>
+                <div class="chapter-time">3:00</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="video-badge">
+                <span class="video-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                    </svg>
+                </span>
+                <span>Video Documentary</span>
+            </div>
+            
+            <h2 class="video-title">The Perfect AI<br>Megaproject</h2>
+            <p class="video-subtitle">Documentary feature — 12 minutes</p>
+            
+            <!-- Main Video Player -->
+            <div class="video-player-wrapper">
+                <video id="main-video" class="main-video" poster="video-player-poster.png" preload="metadata">
+                    <source src="THOROLD TO HALDIMAND CORRIDOR.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                
+
+
+
+                <!-- Video Controls Overlay -->
+                <div class="video-controls" id="video-controls">
+                    <button class="video-play-btn" id="video-play-btn">
+                        <span class="video-play-icon"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Video Progress -->
+            <div class="video-progress-area">
+                <div class="video-progress" id="video-progress-container">
+                    <div class="video-progress-bar" id="video-progress-bar"></div>
+                </div>
+                <div class="video-time">
+                    <span id="video-current-time">0:00</span>
+                    <span id="video-duration">12:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cinematic Film Sections -->
+    <section class="cinematic-section">
+        
+        <!-- Section 1: Foundation -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">01 / Foundation</p>
+                <h2 class="film-title">Industrial Zoned Foundation</h2>
+                <p class="film-description">Federal & Provincial Industrial zoned land — 500+ acres sovereign-controlled.</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Power -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">02 / Power</p>
+                <h2 class="film-title">500kV / 230kV Grid</h2>
+                <p class="film-description">Direct-tap easements. Grid-locked interconnection ready.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: 500+ Industrial Zoned Land -->
+        <div class="film-section center-number">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <div class="film-big-number">500+</div>
+                <p class="film-big-label">Industrial Zoned Land</p>
+            </div>
+        </div>
+
+        <!-- Section 4: Cooling -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">03 / Cooling</p>
+                <h2 class="film-title">Cooling Superhighway</h2>
+                <p class="film-description">St. Lawrence Seaway + Lake Erie cooling. PUE < 1.1</p>
+            </div>
+        </div>
+
+        <!-- Section 5: Nodes -->
+        <div class="film-section">
+            <div class="film-bg">
+                <video src="sutera-video-loop.mp4" autoplay loop muted playsinline></video>
+            </div>
+            <div class="film-overlay"></div>
+            <div class="film-content">
+                <p class="film-label">04 / Nodes</p>
+                <h2 class="film-title">Niagara & Haldimand</h2>
+                <p class="film-description">308 acres + 237 acres. Canada's sovereign AI corridor.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Data Section -->
+    <section class="data-section">
+        <div class="section-header">
+            <div>
+                <span class="section-label">/25 Infrastructure Spec</span>
+                <h2 class="section-title">The Corridor Already Exists</h2>
+            </div>
+        </div>
+        <div class="data-grid">
+            <div class="data-card">
+                <h4>Total Acreage</h4>
+                <div class="value">500+<span class="unit">ac</span></div>
+            </div>
+            <div class="data-card">
+                <h4>Grid Capacity</h4>
+                <div class="value">2+<span class="unit">GW</span></div>
+            </div>
+            <div class="data-card">
+                <h4>Niagara Node</h4>
+                <div class="value">308<span class="unit">ac</span></div>
+            </div>
+            <div class="data-card">
+                <h4>Haldimand Node</h4>
+                <div class="value">237<span class="unit">ac</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-container">
+            <div class="quote-image">
+                <img src="danloney.jpg" alt="Dan Loney - Sovereign AI Corridor™">
+            </div>
+            <div class="quote-content">
+                <blockquote>"This is a flagship infrastructure corridor 'The Alley', is on par with the Trans-Canada Highway or the St. Lawrence Seaway system — except we are not just moving people or freight; we are anchoring Canada's sovereign-AI-compute and grid- resilience future."</blockquote>
+                <div class="quote-attribution">
+                    <span class="quote-divider"></span>
+                    <div>
+                        <div class="name">Dan Loney</div>
+                        <div class="title">Sovereign AI Corridor™ Inc.</div>
                     </div>
                 </div>
-                <p style="margin-top: 24px;">This 18-month window is critical for "building the future now." It provides a tangible success story for the government and establishes a repeatable model that can be exported to Alberta, BC, and Quebec.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="text-section text-section-alt">
-        <div class="text-container-single">
-            <div class="text-label">06 / Ministerial Directive</div>
-            <h2 class="text-title">Formal Policy Recommendations</h2>
-            <div class="text-body">
-                <p>The success of Canada's sovereign AI infrastructure requires the immediate formation of a <strong>tri-ministry "AI-Sovereign-Build-Out Task Force."</strong> This unified approach will ensure that policy, finance, and physical delivery are synchronized for maximum impact.</p>
-                <ul class="directive-list">
-                    <li><strong>Directive 1 (ISED):</strong> Lead on policy-locking the corridor, finalizing industry engagement parameters, and integrating the AI Compute Challenge within the Niagara-Haldimand framework.</li>
-                    <li><strong>Directive 2 (Finance Canada):</strong> Oversee the design of tax incentives, loan guarantees, and Canada Infrastructure Bank (CIB) support to ensure long-term financial viability.</li>
-                    <li><strong>Directive 3 (Public Services and Procurement / Infrastructure Canada):</strong> Serve as the physical infrastructure-delivery partner, managing the technical build-out and grid-integration protocols.</li>
-                </ul>
-                <p style="margin-top: 32px;"><strong>Call-to-Action for the Prime Minister's Office:</strong> The Sovereign AI Corridor™ is the only AI-infrastructure project in Canada that is ready to be policy-locked, grid-locked, and sovereign-locked at the national level. We formally request that the Prime Minister's Office designate this corridor as Canada's flagship AI-sovereign compute infrastructure project and authorize the relevant ministries to co-launch a national-scale AI-build-out program anchored within this corridor.</p>
-                <p style="margin-top: 20px; font-style: italic;">Authored by Lorne Daniel Loney, Founder and CEO, Sovereign AI Corridor™ Inc.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-left">
-            Sovereign AI Corridor™ Inc.
-        </div>
         <div class="footer-right">
-            <a href="index.html" class="footer-link">Home</a>
             <a href="contact.html" class="footer-link">Contact</a>
         </div>
     </footer>
@@ -1508,6 +1795,7 @@
         const progressContainer = document.getElementById('audio-progress-container');
         const currentTimeEl = document.getElementById('current-time');
         const durationEl = document.getElementById('duration');
+        const chapterCards = document.querySelectorAll('.chapter-card');
         const waveform = document.getElementById('waveform');
 
         playBtn.addEventListener('click', () => {
@@ -1515,12 +1803,12 @@
                 audio.play();
                 playBtn.classList.add('playing');
                 waveform.classList.add('playing');
-                playText.textContent = 'Pause Briefing';
+                playText.textContent = 'Pause Podcast';
             } else {
                 audio.pause();
                 playBtn.classList.remove('playing');
                 waveform.classList.remove('playing');
-                playText.textContent = 'Play Briefing';
+                playText.textContent = 'Play Podcast';
             }
         });
 
@@ -1528,6 +1816,16 @@
             const progress = (audio.currentTime / audio.duration) * 100;
             progressBar.style.width = progress + '%';
             currentTimeEl.textContent = formatTime(audio.currentTime);
+            
+            chapterCards.forEach(card => {
+                const cardTime = parseInt(card.dataset.time);
+                const nextCardTime = cardTime + 60;
+                if (audio.currentTime >= cardTime && audio.currentTime < nextCardTime) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
         });
 
         audio.addEventListener('loadedmetadata', () => {
@@ -1537,14 +1835,28 @@
         audio.addEventListener('ended', () => {
             playBtn.classList.remove('playing');
             waveform.classList.remove('playing');
-            playText.textContent = 'Play Briefing';
+            playText.textContent = 'Play Podcast';
         });
 
+        // Click on progress bar to seek
         progressContainer.addEventListener('click', (e) => {
             const rect = progressContainer.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const percent = clickX / rect.width;
             audio.currentTime = percent * audio.duration;
+        });
+
+        chapterCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const time = parseInt(card.dataset.time);
+                audio.currentTime = time;
+                if (audio.paused) {
+                    audio.play();
+                    playBtn.classList.add('playing');
+                    waveform.classList.add('playing');
+                    playText.textContent = 'Pause Podcast';
+                }
+            });
         });
 
         function formatTime(seconds) {
@@ -1607,22 +1919,52 @@
             });
         }
 
-        // Text section animations
-        gsap.from('.text-container', {
+        // Film sections reveal animation
+        const filmSections = document.querySelectorAll('.film-section');
+        filmSections.forEach((section, index) => {
+            const content = section.querySelector('.film-content');
+            
+            gsap.from(content, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'top 20%',
+                    scrub: 1
+                },
+                opacity: 0,
+                y: 60
+            });
+
+            gsap.to(content, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'bottom 80%',
+                    end: 'bottom 20%',
+                    scrub: 1
+                },
+                opacity: 0,
+                y: -60
+            });
+        });
+
+        // Data cards animation
+        gsap.from('.data-card', {
             scrollTrigger: {
-                trigger: '.text-section',
-                start: 'top 75%'
+                trigger: '.data-section',
+                start: 'top 70%'
             },
-            y: 50,
+            y: 60,
             opacity: 0,
-            duration: 0.9,
+            duration: 0.8,
+            stagger: 0.1,
             ease: 'power3.out'
         });
 
-        gsap.from('.text-container-single', {
+        // Quote animation
+        gsap.from('.quote-container', {
             scrollTrigger: {
-                trigger: '.text-section:last-of-type',
-                start: 'top 75%'
+                trigger: '.quote-section',
+                start: 'top 70%'
             },
             y: 40,
             opacity: 0,
@@ -1630,8 +1972,16 @@
             ease: 'power3.out'
         });
 
-        // Hero typewriter effect
-        const heroTypewriterText = "Thorold-Nanticoke Blueprint\n• Policy locked • Grid locked • Industrial zoned on home soil";
+
+
+
+
+
+
+
+
+        // Hero typewriter effect for floating land video
+        const heroTypewriterText = "True Sovereign Ai\n• Locally powered • thermally optimized and legally protected on home soil";
         const heroTypewriterEl = document.querySelector('#hero-typewriter .text');
         let heroTypewriterIndex = 0;
         function runHeroTypewriter() {
@@ -1650,4 +2000,3 @@
     </script>
 </body>
 </html>
-
