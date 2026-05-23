@@ -5,6 +5,16 @@
   "outputDirectory": "dist-sutera",
   "rewrites": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "foundation.sovereignaicorridor.ca"
+        }
+      ],
+      "destination": "/foundation/index.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     }
