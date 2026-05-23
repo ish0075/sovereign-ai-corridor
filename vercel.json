@@ -9,19 +9,6 @@
       "destination": "/api/$1"
     }
   ],
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "sovereignaicorridor.ca"
-        }
-      ],
-      "destination": "https://www.sovereignaicorridor.ca/$1",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
