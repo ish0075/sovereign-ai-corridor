@@ -1374,6 +1374,56 @@
                 display: none;
             }
 
+            .mobile-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(26,26,26,0.97);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 24px;
+                z-index: 99;
+                opacity: 0;
+                pointer-events: none;
+                visibility: hidden;
+                transition: opacity 0.35s ease, visibility 0.35s ease;
+                transform: none;
+                padding-top: 80px;
+                display: flex;
+            }
+
+            .mobile-nav.mobile-open {
+                opacity: 1;
+                pointer-events: auto;
+                visibility: visible;
+            }
+
+            .mobile-nav .nav-link {
+                font-size: 18px;
+                padding: 12px 0;
+                color: white;
+            }
+
+            .menu-trigger {
+                z-index: 101;
+                position: relative;
+            }
+
+            .menu-trigger span {
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+
+            .menu-trigger.active span:first-child {
+                transform: translateY(3.5px) rotate(45deg);
+            }
+
+            .menu-trigger.active span:last-child {
+                transform: translateY(-3.5px) rotate(-45deg);
+            }
+
             .video-section {
                 padding: 60px 24px;
             }
@@ -1416,12 +1466,7 @@
     <!-- Header -->
     <header>
         <a href="index.html" class="logo">SOVEREIGN AI CORRIDOR™</a>
-        <nav class="main-nav">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="white-paper-policy.html" class="nav-link">White Paper Policy</a>
-            <a href="funding-and-strategy.html" class="nav-link">Foundation & Strategy</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-        </nav>
+        
         <div class="header-right">
             <span class="company-inc">SOVEREIGN AI CORRIDOR INC.</span>
             <span class="time-display" id="local-time">Toronto — --:--</span>
@@ -1431,6 +1476,12 @@
             </div>
         </div>
     </header>
+    <nav class="main-nav mobile-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="white-paper-policy.html" class="nav-link">White Paper Policy</a>
+            <a href="funding-and-strategy.html" class="nav-link">Foundation & Strategy</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1997,6 +2048,25 @@
             }
         }
         setTimeout(runHeroTypewriter, 500);
+
+        // Mobile menu toggle
+        const menuTrigger = document.querySelector('.menu-trigger');
+        const mobileNav = document.querySelector('.mobile-nav');
+        if (menuTrigger && mobileNav) {
+            menuTrigger.addEventListener('click', () => {
+                menuTrigger.classList.toggle('active');
+                mobileNav.classList.toggle('mobile-open');
+                document.body.style.overflow = mobileNav.classList.contains('mobile-open') ? 'hidden' : '';
+            });
+            // Close menu when a nav link is clicked
+            mobileNav.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuTrigger.classList.remove('active');
+                    mobileNav.classList.remove('mobile-open');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
     </script>
 </body>
 </html>
